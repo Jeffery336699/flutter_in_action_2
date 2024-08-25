@@ -20,7 +20,7 @@ class _WebViewTestState extends State<WebViewTest> {
         onProgress: (progress) => print(progress),
         onPageStarted: (url) => print('start loading: $url'),
         onPageFinished: (url) => print('load finished:$url'),
-        onWebResourceError: (err)=>print(err.description),
+        onWebResourceError: (err) => print(err.description),
         javascriptChannels: <JavascriptChannel>{
           _toasterJavascriptChannel(context),
         },
@@ -32,8 +32,7 @@ class _WebViewTestState extends State<WebViewTest> {
     return JavascriptChannel(
       name: 'Toaster',
       onMessageReceived: (JavascriptMessage message) {
-        // ignore: deprecated_member_use
-        Scaffold.of(context).showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(message.message)),
         );
       },
