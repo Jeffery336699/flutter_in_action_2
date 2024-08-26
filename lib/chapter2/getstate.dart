@@ -20,8 +20,9 @@ class _GetStateObjectRouteState extends State<GetStateObjectRoute> {
             Builder(builder: (context) {
               return ElevatedButton(
                 onPressed: () {
-                  // 查找父级最近的Scaffold对应的ScaffoldState对象
-                  ScaffoldState _state = context.findAncestorStateOfType<ScaffoldState>()!;
+                  // todo 查找父级最近的Scaffold对应的ScaffoldState对象
+                  ScaffoldState _state =
+                      context.findAncestorStateOfType<ScaffoldState>()!;
                   // 打开抽屉菜单
                   _state.openDrawer();
                 },
@@ -31,8 +32,8 @@ class _GetStateObjectRouteState extends State<GetStateObjectRoute> {
             Builder(builder: (context) {
               return ElevatedButton(
                 onPressed: () {
-                  // 直接通过of静态方法来获取ScaffoldState
-                  ScaffoldState _state=Scaffold.of(context);
+                  // todo 直接通过of静态方法来获取ScaffoldState
+                  ScaffoldState _state = Scaffold.of(context);
                   // 打开抽屉菜单
                   _state.openDrawer();
                 },

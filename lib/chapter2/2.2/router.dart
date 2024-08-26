@@ -9,6 +9,7 @@ class RouterTestRoute extends StatelessWidget {
       child: ElevatedButton(
         child: const Text("打开提示页"),
         onPressed: () async {
+          ///这里用await等待返回的值是细节
           var result = await Navigator.push(
             context,
             MaterialPageRoute(

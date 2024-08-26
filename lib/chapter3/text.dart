@@ -65,16 +65,16 @@ class _TextRouteState extends State<TextRoute> {
                   recognizer: _tapRecognizer),
             ]),
           ),
-          DefaultTextStyle(
+          const DefaultTextStyle(
             //1.设置文本默认样式
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.red,
               fontSize: 20.0,
             ),
             textAlign: TextAlign.start,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
+              children: <Widget>[
                 Text("hello world"),
                 Text("I am Jack"),
                 Text(

@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 
+/// 0. 组件刚构建(init):
+///     initState
+///     didChangeDependencies
+///     build
+/// 1. setState:
+///     build
+/// 2. 热重载:
+///     reassemble
+///     build
+/// 3. 组件被移除:
+///     reassemble
+///     deactivate
+///     dispose
+///
 class StateLifecycleTest extends StatelessWidget {
   const StateLifecycleTest({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const CounterWidget();
+    // return const CounterWidget();
+
+    ///todo 模拟组价被移除,主要看完整的销毁逻辑,这里放开看看就行
+    return const Text("模拟移除...");
   }
 }
 
