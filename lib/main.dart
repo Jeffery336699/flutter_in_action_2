@@ -1,10 +1,10 @@
 import 'dart:async';
+
+import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart' hide Page;
-import 'package:webview_flutter/webview_flutter.dart';
+
 import 'common.dart';
 import 'routes.dart';
-import 'chapter14/draw_main.dart' as custom;
-import 'package:flukit/flukit.dart';
 
 void main() {
   // custom.main();
@@ -117,7 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("层叠布局", const StackRoute()),
                 Page("表格布局", const TableRoute()),
                 Page("对齐及相对定位", const AlignRoute()),
-                Page("LayoutBuilder", const LayoutBuilderRoute(), padding: false),
+                Page("LayoutBuilder", const LayoutBuilderRoute(),
+                    padding: false),
                 Page("AfterLayout", const AfterLayoutRoute()),
               ]),
             ),
@@ -145,15 +146,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SingleChildScrollViewTestRoute(),
                   padding: false,
                 ),
-                Page("InfiniteListView", const InfiniteListView(), padding: false),
+                Page("InfiniteListView", const InfiniteListView(),
+                    padding: false),
                 Page("可滚动组件的通用配置", const ScrollViewConfiguration()),
                 Page("列表项固定高度列表", const FixedExtentList(), padding: false),
                 Page("AnimatedList", const AnimatedListRoute(), padding: false),
-                Page("InfiniteGridView", const InfiniteGridView(), padding: false),
+                Page("InfiniteGridView", const InfiniteGridView(),
+                    padding: false),
                 Page("PageView", const PageViewTest(), padding: false),
                 Page("KeepAlive Test", const KeepAliveTest(), padding: false),
                 Page("TabBarView", const TabViewRoute()),
-                Page("滚动监听", const ScrollNotificationTestRoute(), padding: false),
+                Page("滚动监听", const ScrollNotificationTestRoute(),
+                    padding: false),
                 Page(
                   "CustomScrollView",
                   const CustomScrollViewTestRoute(),
@@ -192,7 +196,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("导航返回拦截", const WillPopScopeTestRoute()),
                 Page("数据共享(inheritedWidget)", const InheritedWidgetTestRoute()),
                 Page("跨组件状态管理(Provider)", const ProviderRoute()),
-                Page("颜色和MaterialColor", const ColorRoute(), withScaffold: false),
+                Page("颜色和MaterialColor", const ColorRoute(),
+                    withScaffold: false),
                 Page("主题-Theme", const ThemeTestRoute(), withScaffold: false),
                 Page("ValueListenableBuilder", const ValueListenableRoute(),
                     withScaffold: false),
@@ -222,8 +227,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("放大动画-GrowTransition版", const GrowTransitionRoute()),
                 Page("Hero动画", const HeroAnimationRoute(), padding: false),
                 Page("交织动画(Stagger Animation)", const StaggerRoute()),
-                Page(
-                    "动画切换组件(AnimatedSwitcher)", const AnimatedSwitcherCounterRoute()),
+                Page("动画切换组件(AnimatedSwitcher)",
+                    const AnimatedSwitcherCounterRoute()),
                 Page("动画切换组件高级用法", const AnimatedSwitcherRoute()),
                 Page("动画过渡组件", const AnimatedWidgetsTest()),
               ]),
@@ -232,7 +237,8 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text("自定义组件"),
               children: _generateItem(context, [
                 Page("GradientButton", const GradientButtonRoute()),
-                Page("Material APP", const ScaffoldRoute(), withScaffold: false),
+                Page("Material APP", const ScaffoldRoute(),
+                    withScaffold: false),
                 Page("旋转容器：TurnBox", const TurnBoxRoute()),
                 Page("CustomPaint", const CustomPaintRoute()),
                 Page("自绘控件：圆形渐变进度条", const GradientCircularProgressRoute()),

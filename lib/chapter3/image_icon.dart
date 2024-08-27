@@ -9,6 +9,7 @@ class ImageAndIconRoute extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
           children: <Image>[
+        ///设置诸多image的宽高大小,最终以何种形式'填充'(fit)到父组件中
         Image(
           image: img,
           height: 50.0,
@@ -51,6 +52,8 @@ class ImageAndIconRoute extends StatelessWidget {
           width: 100.0,
           fit: BoxFit.none,
         ),
+
+        ///此时在没写height的情况下,根据fit枚举类型,自适应出height来呈现
         Image(
           image: img,
           width: 100.0,
@@ -67,8 +70,15 @@ class ImageAndIconRoute extends StatelessWidget {
       ].map((e) {
         return Row(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.blue, // 边框颜色
+                  width: 1.0, // 边框宽度
+                  style: BorderStyle.solid, // 边框样式
+                ),
+              ),
               child: SizedBox(
                 width: 100,
                 child: e,
@@ -94,8 +104,10 @@ class IconFontsRoute extends StatelessWidget {
           color: Colors.red,
         ),
         Text(
+          ///对应就是Icons.fingerprint的codePoint(图标字体下的唯一标识,16进制)
           '\uE287' * 20,
           style: const TextStyle(
+            ///必须是Icons工具类的图标字体哟,否则无法识别上面'\uE287'数据
             fontFamily: "MaterialIcons",
             fontSize: 24.0,
             color: Colors.green,

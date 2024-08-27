@@ -20,6 +20,7 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
           TextField(
             autofocus: true,
             focusNode: focusNode1, //关联focusNode1
+            ///就是长按复制粘贴全选那些提示
             toolbarOptions: const ToolbarOptions(
               selectAll: true,
               copy: true,
@@ -38,14 +39,14 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
                   ElevatedButton(
                     child: const Text("移动焦点"),
                     onPressed: () {
-                      //将焦点从第一个TextField移到第二个TextField
+                      ///将焦点从第一个TextField移到第二个TextField
                       FocusScope.of(context).requestFocus(focusNode2);
                     },
                   ),
                   ElevatedButton(
                     child: const Text("隐藏键盘"),
                     onPressed: () {
-                      // 当所有编辑框都失去焦点时键盘就会收起
+                      /// 当所有编辑框都失去焦点时键盘就会收起
                       focusNode1.unfocus();
                       focusNode2.unfocus();
                     },

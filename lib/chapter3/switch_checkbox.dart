@@ -4,8 +4,7 @@ class SwitchAndCheckBoxRoute extends StatefulWidget {
   const SwitchAndCheckBoxRoute({Key? key}) : super(key: key);
 
   @override
-  _SwitchAndCheckBoxRouteState createState() =>
-       _SwitchAndCheckBoxRouteState();
+  _SwitchAndCheckBoxRouteState createState() => _SwitchAndCheckBoxRouteState();
 }
 
 class _SwitchAndCheckBoxRouteState extends State<SwitchAndCheckBoxRoute> {
@@ -17,6 +16,7 @@ class _SwitchAndCheckBoxRouteState extends State<SwitchAndCheckBoxRoute> {
       children: <Widget>[
         Row(
           children: <Widget>[
+            ///这个Switch的切换是ok的,它引起了状态的变化与刷新
             Switch(
               value: _switchSelected, //当前状态
               onChanged: (value) {
@@ -27,6 +27,8 @@ class _SwitchAndCheckBoxRouteState extends State<SwitchAndCheckBoxRoute> {
               },
             ),
             const Text("关"),
+
+            ///数据_switchSelected驱动UI,这个Switch的UI操作切换改变但是没有改变_switchSelected的话,最终呈现还是原样
             Switch(
               value: !_switchSelected, //当前状态
               onChanged: (value) {},
@@ -41,6 +43,7 @@ class _SwitchAndCheckBoxRouteState extends State<SwitchAndCheckBoxRoute> {
               activeColor: Colors.red, //选中时的颜色
               onChanged: (value) {
                 setState(() {
+                  print('Checkbox:$value');
                   _checkboxSelected = value!;
                 });
               },

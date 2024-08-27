@@ -39,7 +39,7 @@ class _TextRouteState extends State<TextRoute> {
           ),
           const Text(
             "Hello world",
-            textScaleFactor: 1.5,
+            textScaler: TextScaler.linear(1.5),
           ),
           Text(
             "Hello world " * 6, //字符串重复六次
@@ -66,7 +66,7 @@ class _TextRouteState extends State<TextRoute> {
             ]),
           ),
           const DefaultTextStyle(
-            //1.设置文本默认样式
+            /// 1.设置文本默认样式
             style: TextStyle(
               color: Colors.red,
               fontSize: 20.0,
@@ -80,7 +80,8 @@ class _TextRouteState extends State<TextRoute> {
                 Text(
                   "I am Jack",
                   style: TextStyle(
-                    inherit: false, //2.不继承默认样式
+                    /// 2.不继承默认样式;继承的话,只对自身修改的进行变化,其他还是默认(同android设置主题类似)
+                    inherit: false,
                     color: Colors.grey,
                   ),
                 ),
