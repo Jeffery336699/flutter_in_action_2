@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
+
 import '../common.dart';
 
 class ResponsiveColumn extends StatelessWidget {
@@ -8,8 +10,10 @@ class ResponsiveColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///通过LayoutBuilder拿到父组件对子组件的约束信息,然后根据约束信息构建不同的布局(一种响应式的思维)
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
+        print('LayoutBuilder---> ${constraints.maxWidth}');
         if (constraints.maxWidth < 200) {
           return Column(children: children, mainAxisSize: MainAxisSize.min);
         } else {
@@ -47,6 +51,6 @@ class LayoutBuilderRoute extends StatelessWidget {
         const LayoutLogPrint(child: Text("flutter@wendux")),
         //CustomSingleChildLayout
       ],
-    );
+    ).withBorder();
   }
 }

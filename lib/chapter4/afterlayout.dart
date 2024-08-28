@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
+
 import '../common.dart';
 
 class AfterLayoutRoute extends StatefulWidget {
@@ -21,6 +23,7 @@ class _AfterLayoutRouteState extends State<AfterLayoutRoute> {
           padding: const EdgeInsets.all(8.0),
           child: Builder(
             builder: (context) {
+              ///1. 至少事件分发是在布局之后
               return GestureDetector(
                 child: const Text(
                   'Text1: 点我获取我的大小',
@@ -82,6 +85,6 @@ class _AfterLayoutRouteState extends State<AfterLayoutRoute> {
           child: const Text('追加字符串'),
         ),
       ],
-    );
+    ).withBorder();
   }
 }

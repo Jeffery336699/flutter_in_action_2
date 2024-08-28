@@ -128,11 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("Container", const ContainerRoute()),
                 Page("FittedBox", const FittedBoxRoute()),
                 Page("剪裁", const ClipRoute()),
-                Page(
-                  "Scaffold、TabBar、底部导航",
-                  const ScaffoldRoute(),
-                  withScaffold: false,
-                ),
+                Page("Scaffold、TabBar、底部导航", const ScaffoldRoute(),
+                    withScaffold: false, showLog: false),
               ]),
             ),
             ExpansionTile(

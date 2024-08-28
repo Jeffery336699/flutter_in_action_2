@@ -25,7 +25,7 @@ class TableRoute extends StatelessWidget {
               children: _addPadding([
                 const Text("张三"),
                 const Text("男"),
-                Text("我和李四不是兄弟" * 2),
+                Text("我和李四不是兄弟不是兄弟"),
               ]),
             ),
             TableRow(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class PaddingTestRoute extends StatelessWidget {
   const PaddingTestRoute({Key? key}) : super(key: key);
@@ -12,24 +13,24 @@ class PaddingTestRoute extends StatelessWidget {
         //显式指定对齐方式为左对齐，排除对齐干扰
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
-        children: const <Widget>[
-          Padding(
+        children: <Widget>[
+          const Padding(
             //左边添加8像素补白
             padding: EdgeInsets.only(left: 8),
             child: Text("Hello world"),
-          ),
-          Padding(
+          ).withBorder(),
+          const Padding(
             //上下各添加8像素补白
             padding: EdgeInsets.symmetric(vertical: 8),
             child: Text("I am Jack"),
-          ),
-          Padding(
+          ).withBorder(),
+          const Padding(
             // 分别指定四个方向的补白
             padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
             child: Text("Your friend"),
-          )
+          ).withBorder()
         ],
-      ),
-    );
+      ).withBorder(),
+    ).withBorder();
   }
 }

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
 
 class TransformRoute extends StatelessWidget {
   const TransformRoute({Key? key}) : super(key: key);
@@ -9,6 +10,8 @@ class TransformRoute extends StatelessWidget {
     var children = [
       Container(
         color: Colors.black,
+
+        ///Transform针对的都是其包裹的子组件进行变换,并且作用于绘制阶段,即它原本的布局位置并没有改变哟!
         child: Transform(
           alignment: Alignment.topRight, //相对于坐标系原点的对齐方式
           transform: Matrix4.skewY(0.3), //沿Y轴倾斜0.3弧度
@@ -45,6 +48,7 @@ class TransformRoute extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          ///可以看出Transform变换仅仅是一种视觉上的变化(绘制阶段),实际位置并没有发生变化(布局阶段)
           DecoratedBox(
             decoration: const BoxDecoration(color: Colors.red),
             child: Transform.scale(
@@ -58,12 +62,13 @@ class TransformRoute extends StatelessWidget {
           )
         ],
       ),
-      Row(
+      const Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const <Widget>[
+        children: <Widget>[
           DecoratedBox(
             decoration: BoxDecoration(color: Colors.red),
-            //将Transform.rotate换成RotatedBox
+
+            ///想要真正的布局也发生变化,可以将Transform.rotate换成RotatedBox
             child: RotatedBox(
               quarterTurns: 1, //旋转90度(1/4圈)
               child: Text("Hello world"),

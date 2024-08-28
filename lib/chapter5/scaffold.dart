@@ -59,20 +59,22 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
           mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
       ),
-//      bottomNavigationBar: BottomNavigationBar(
-//        items: <BottomNavigationBarItem>[
-//          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-//          BottomNavigationBarItem(
-//              icon: Icon(Icons.business), title: Text('Business')),
-//          BottomNavigationBarItem(
-//              icon: Icon(Icons.school), title: Text('School')),
-//        ],
-//        currentIndex: _selectedIndex,
-//        fixedColor: Colors.blue,
-//        onTap: _onItemTapped,
-//      ),
-      floatingActionButton:
-          FloatingActionButton(child: const Icon(Icons.add), onPressed: _onAdd),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.business), label: 'Business'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.school), label: 'School'),
+      //   ],
+      //   currentIndex: _selectedIndex,
+      //   fixedColor: Colors.blue,
+      //   onTap: _onItemTapped,
+      // ),
+      floatingActionButton: FloatingActionButton(
+          child: ClipOval(
+            child: Image.asset('imgs/avatar.png'), // 请替换为您的图片
+          ),
+          onPressed: _onAdd),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -108,6 +110,7 @@ class MyDrawer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: ClipOval(
+                      ///这里借助设置宽,来间接的设置裁剪后的圆形头像大小
                       child: Image.asset(
                         "imgs/avatar.png",
                         width: 80,

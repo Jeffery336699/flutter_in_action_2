@@ -7,6 +7,7 @@ class ClipRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     // 头像
     Image avatar = Image.asset("imgs/avatar.png", width: 60.0);
+    print('${avatar.width} , ${avatar.height}'); // 60.0 , null
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -25,7 +26,9 @@ class ClipRoute extends StatelessWidget {
           children: <Widget>[
             Align(
               alignment: Alignment.topLeft,
-              widthFactor: .5, //宽度设为原来宽度一半，另一半会溢出,但会显示
+
+              ///宽度设为原来宽度一半，另一半会溢出,但会显示(目的:演示默认情况下,没有裁剪的状况)
+              widthFactor: .5,
               child: avatar,
             ),
             const Text(
@@ -38,7 +41,7 @@ class ClipRoute extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ClipRect(
-              //将溢出部分剪裁
+              ///同上对比,将溢出部分剪裁
               child: Align(
                 alignment: Alignment.topLeft,
                 widthFactor: .5, //宽度设为原来宽度一半
@@ -66,9 +69,10 @@ class ClipRoute extends StatelessWidget {
   }
 }
 
+///演示自定义裁剪,确定对目标的裁剪区域
 class MyClipper extends CustomClipper<Rect> {
   @override
-  Rect getClip(Size size) => const Rect.fromLTWH(10.0, 15.0, 40.0, 30.0);
+  Rect getClip(Size size) => const Rect.fromLTWH(10.0, 10.0, 40.0, 30.0);
 
   @override
   bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
@@ -84,7 +88,9 @@ class MyClipRect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var rect = const Rect.fromLTWH(10.0, 15.0, 40.0, 30.0);
+    var rect = const Rect.fromLTWH(10.0, 10.0, 40.0, 30.0);
+
+    ///todo 这里我的理解是子组件先把他设置为不穷大,然后填充到SizedBox中,最后把多余部分裁剪掉?? 还是有些不懂
     return ClipRect(
       child: SizedBox(
         width: rect.width,
