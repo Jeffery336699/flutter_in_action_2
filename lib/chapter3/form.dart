@@ -15,7 +15,7 @@ class _FormTestRouteState extends State<FormTestRoute> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey, //设置globalKey，用于后面获取FormState
+      key: _formKey, //todo 设置globalKey，用于后面获取FormState
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: <Widget>[
@@ -27,7 +27,7 @@ class _FormTestRouteState extends State<FormTestRoute> {
               hintText: "用户名或邮箱",
               icon: Icon(Icons.person),
             ),
-            // 校验用户名
+            // 校验用户名,返回null表示验证ok
             validator: (v) {
               return v!.trim().isNotEmpty ? null : "用户名不能为空";
             },
@@ -60,8 +60,13 @@ class _FormTestRouteState extends State<FormTestRoute> {
                       // 通过_formKey.currentState 获取FormState后，
                       // 调用validate()方法校验用户名密码是否合法，校验
                       // 通过后再提交数据。
+                      // todo 相当于收拢(集线器),校验Form下all FormField是否都校验通过
                       if ((_formKey.currentState as FormState).validate()) {
                         //验证通过提交数据
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('验证通过提交数据'),
+                        ));
                       }
                     },
                   ),

@@ -107,11 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ExpansionTile(
               title: const Text("布局类组件"),
               children: _generateItem(context, [
-                Page(
-                  "约束",
-                  const SizeConstraintsRoute(),
-                  withScaffold: false,
-                ),
+                Page("约束", const SizeConstraintsRoute(),
+                    withScaffold: false, showLog: false),
                 Page("Column居中", const CenterColumnRoute()),
                 Page("流式布局", const WrapAndFlowRoute()),
                 Page("层叠布局", const StackRoute()),

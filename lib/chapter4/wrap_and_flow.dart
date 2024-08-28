@@ -12,11 +12,11 @@ class WrapAndFlowRoute extends StatelessWidget {
   }
 
   Widget buildWrap() {
-    return Wrap(
+    return const Wrap(
       spacing: 8.0, // 主轴(水平)方向间距
       runSpacing: 4.0, // 纵轴（垂直）方向间距
       alignment: WrapAlignment.center, //沿主轴方向居中
-      children: const <Widget>[
+      children: <Widget>[
         Chip(
           avatar: CircleAvatar(backgroundColor: Colors.blue, child: Text('A')),
           label: Text('Hamilton'),
@@ -38,6 +38,7 @@ class WrapAndFlowRoute extends StatelessWidget {
   }
 
   Widget buildFlow() {
+    ///Flow展示自绘制方式(FlowDelegate中)
     return Flow(
       delegate: TestFlowDelegate(margin: const EdgeInsets.all(10.0)),
       children: <Widget>[

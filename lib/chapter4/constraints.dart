@@ -5,41 +5,80 @@ class SizeConstraintsRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget whiteBox = const DecoratedBox(
+      decoration: BoxDecoration(color: Colors.white),
+    );
     Widget redBox = const DecoratedBox(
       decoration: BoxDecoration(color: Colors.red),
     );
+    Widget greenBox = const DecoratedBox(
+      decoration: BoxDecoration(color: Colors.green),
+    );
+    Widget blueBox = const DecoratedBox(
+      decoration: BoxDecoration(color: Colors.blue),
+    );
+    Widget purpleBox = const DecoratedBox(
+      decoration: BoxDecoration(color: Colors.purple),
+    );
+    Widget amberBox = const DecoratedBox(
+      decoration: BoxDecoration(color: Colors.amber),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("约束"),
-        actions: const <Widget>[
-          UnconstrainedBox(
+        actions: <Widget>[
+          const UnconstrainedBox(
             child: SizedBox(
-              width: 20,
-              height: 20,
+              width: 10,
+              height: 10,
               child: CircularProgressIndicator(
                 strokeWidth: 3,
                 value: .9,
-                valueColor: AlwaysStoppedAnimation(Colors.white70),
+                valueColor: AlwaysStoppedAnimation(Colors.blue),
               ),
             ),
-          )
-
+          ),
+          const SizedBox(
+            width: 10,
+          ),
           // Center(
-          //   child: SizedBox(
-          //     width: 20,
-          //     height: 20,
-          //     child: CircularProgressIndicator(
-          //       strokeWidth: 3,
-          //       value: .9,
-          //       valueColor: AlwaysStoppedAnimation(Colors.white70),
-          //     ),
-          //   ),
-          // )
+          //   child:
+          const SizedBox(
+            width: 10,
+            height: 10,
+            child: CircularProgressIndicator(
+              strokeWidth: 3,
+              value: .7,
+              valueColor: AlwaysStoppedAnimation(Colors.red),
+            ),
+          ),
+          // ),
+          const SizedBox(
+            width: 10,
+          ),
+          const CircularProgressIndicator(
+            strokeWidth: 3,
+            value: .9,
+            valueColor: AlwaysStoppedAnimation(Colors.green),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints.tight(const Size.square(100)),
+            child: const CircularProgressIndicator(
+              strokeWidth: 3,
+              value: .9,
+              valueColor: AlwaysStoppedAnimation(Colors.purple),
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            /// tht first优先级:子类的大小,以父类对子类的约束为主
             ConstrainedBox(
               constraints: const BoxConstraints(
                 minWidth: double.infinity, //宽度尽可能大
@@ -47,23 +86,31 @@ class SizeConstraintsRoute extends StatelessWidget {
               ),
               child: SizedBox(height: 5.0, child: redBox),
             ),
-            SizedBox(width: 80.0, height: 80.0, child: redBox),
+            SizedBox(width: 80.0, height: 80.0, child: greenBox),
+
+            /// 多重约束取交集,这样才能满足各方需求
             ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: 60.0, minHeight: 60.0),
+              constraints:
+                  const BoxConstraints(minWidth: 60.0, minHeight: 60.0),
               //父
               child: ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: 90.0, minHeight: 20.0),
+                constraints:
+                    const BoxConstraints(minWidth: 90.0, minHeight: 20.0),
                 //子
-                child: redBox,
+                child: blueBox,
               ),
             ),
             ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: 90.0, minHeight: 20.0),
+              constraints:
+                  const BoxConstraints(minWidth: 90.0, minHeight: 20.0),
               child: ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: 60.0, minHeight: 60.0),
-                child: redBox,
+                constraints:
+                    const BoxConstraints(minWidth: 60.0, minHeight: 60.0),
+                child: purpleBox,
               ),
             ),
+
+            ///不约束子组件的大小,组件多大就多大
             UnconstrainedBox(
               alignment: Alignment.topLeft,
               child: Padding(
@@ -72,10 +119,10 @@ class SizeConstraintsRoute extends StatelessWidget {
               ),
             ),
 
-            // AspectRatio(
-            //   aspectRatio: 3, //宽是高的三倍
-            //   child: redBox,
-            // )
+            AspectRatio(
+              aspectRatio: 3, //宽是高的三倍
+              child: amberBox,
+            )
           ]
               .map((e) => Padding(
                     padding: const EdgeInsets.only(top: 30),
@@ -85,5 +132,9 @@ class SizeConstraintsRoute extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onPressPrint() {
+    print('打印看看');
   }
 }
