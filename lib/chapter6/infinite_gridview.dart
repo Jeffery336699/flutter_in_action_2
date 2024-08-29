@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class InfiniteGridView extends StatefulWidget {
   const InfiniteGridView({Key? key}) : super(key: key);
@@ -26,11 +27,11 @@ class _InfiniteGridViewState extends State<InfiniteGridView> {
       ),
       itemCount: _icons.length,
       itemBuilder: (context, index) {
-        //如果显示到最后一个并且Icon总数小于200时继续获取数据
-        if (index == _icons.length - 1 && _icons.length < 200) {
+        //如果显示到最后一个并且Icon总数小于20时继续获取数据
+        if (index == _icons.length - 1 && _icons.length < 20) {
           _retrieveIcons();
         }
-        return Icon(_icons[index]);
+        return Icon(_icons[index]).withBorder();
       },
     );
   }

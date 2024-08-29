@@ -33,6 +33,8 @@ class _AnimatedListRouteState extends State<AnimatedListRoute> {
             int index,
             Animation<double> animation,
           ) {
+            print('==> ${animation.value}'); //==> 1.0
+            ///build item时针对每个item的动画
             return FadeTransition(
               opacity: animation,
               child: buildItem(context, index),
@@ -82,8 +84,13 @@ class _AnimatedListRouteState extends State<AnimatedListRoute> {
           // 删除过程执行的是反向动画，animation.value 会从1变为0
           var item = buildItem(context, index);
           print('删除 ${data[index]}');
+          counter--;
+
+          ///①数据层移出数据
           data.removeAt(index);
-          //让透明度变化的更快一些
+
+          ///让透明度变化的更快一些
+          ///②UI层动画
           return FadeTransition(
             opacity: CurvedAnimation(
               parent: animation,

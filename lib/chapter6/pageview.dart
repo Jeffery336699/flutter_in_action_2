@@ -1,8 +1,8 @@
-import 'dart:ui';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+
 import '../routes.dart';
-import 'dart:math' as math;
 
 class PageViewTest extends StatefulWidget {
   const PageViewTest({Key? key}) : super(key: key);
@@ -14,12 +14,21 @@ class PageViewTest extends StatefulWidget {
 class _PageViewTestState extends State<PageViewTest> {
   PageController pageController = PageController();
 
+  ///页面的类型,普通还是带列表的,演示是否同样可以保存滚动的位置
+  ///个人觉得有点鸡肋,你这个页面都缓存起来了,又没有发生重建,那不是原来该咋样就是咋样
   int buildType = 1;
   Axis scrollDirection = Axis.horizontal;
   bool reverse = false;
+
+  ///是否以页为单位进行滑动
   bool pageSnapping = true;
   bool withPageStorageKey = false;
+
+  ///wendux老师自己封装的强无敌的页面缓存,对页面缓存数量没有限制,你需要缓存就借助KeepAliveWrapper这个组件包裹一层
   bool wrapWithKeepAliveWrapper = false;
+
+  ///默认情况PageView是没有缓存能力的(没有开启咯),这里给你一个自带的稍弱版的缓存
+  ///是否懒加载前后各一页,(因为PageView内部的缓存的类型是CacheExtentStyle.viewport+cacheExtent为1),超出的销毁
   bool allowImplicitScrolling = false;
 
   @override
@@ -48,11 +57,9 @@ class _PageViewTestState extends State<PageViewTest> {
   }
 
   Widget buildConfigPage(context) {
-    var size = MediaQueryData.fromWindow(window).size;
-    // return LayoutBuilder(builder: (context,constraints){
-    //   print(constraints);
-    //   return Text("");
-    // });
+    ///todo MediaQueryData.fromWindow(window).size是不受context的限制,获取到全局的设备相关信息
+    // var size = MediaQueryData.fromWindow(window).size;
+    var size = MediaQuery.of(context).size;
     return FittedBox(
       alignment: Alignment.topCenter,
       child: ConstrainedBox(
@@ -71,7 +78,7 @@ class _PageViewTestState extends State<PageViewTest> {
                 ),
                 RadioListTile(
                   value: 2,
-                  title: const Text('别表'),
+                  title: const Text('列表'),
                   groupValue: buildType,
                   onChanged: buildTypeChange,
                 ),
@@ -143,67 +150,15 @@ class _PageViewTestState extends State<PageViewTest> {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return PageScaffold(
+                      return const PageScaffold(
                         title: 'xx',
-                        body: const Center(child: Text('xx')),
+                        body: Center(child: Text('xx')),
                       );
                     }));
                   },
                 ),
               ],
             ),
-            // ExpansionTile(
-            //   title: Text("其它配置"),
-            //   initiallyExpanded: true,
-            //   children: [
-            //     CheckboxListTile(
-            //       value: reverse,
-            //       title: Text('reverse'),
-            //       onChanged: (v) => setState(() => reverse = v!),
-            //     ),
-            //     CheckboxListTile(
-            //       value: pageSnapping,
-            //       title: Text('pageSnapping'),
-            //       onChanged: (v) => setState(() => pageSnapping = v!),
-            //     ),
-            //     CheckboxListTile(
-            //       value: withPageStorageKey,
-            //       title: Text('添加PageStorageKey'),
-            //       onChanged: (v) => setState(() => withPageStorageKey = v!),
-            //     ),
-            //     CheckboxListTile(
-            //       value: wrapWithKeepAliveWrapper,
-            //       title: Text('KeepAlive'),
-            //       onChanged: (v) => setState(() => wrapWithKeepAliveWrapper = v!),
-            //     ),
-            //   ],
-            // ),
-            // ExpansionTile(
-            //   title: Text("其它配置"),
-            //   initiallyExpanded: true,
-            //   children: [
-            //     CheckboxListTile(
-            //       value: reverse,
-            //       title: Text('reverse'),
-            //       onChanged: (v) => setState(() => reverse = v!),
-            //     ),
-            //     CheckboxListTile(
-            //       value: pageSnapping,
-            //       title: Text('pageSnapping'),
-            //       onChanged: (v) => setState(() => pageSnapping = v!),
-            //     ),
-            //     CheckboxListTile(
-            //       value: withPageStorageKey,
-            //       title: Text('添加PageStorageKey'),
-            //       onChanged: (v) => setState(() => withPageStorageKey = v!),
-            //     ),
-            //     CheckboxListTile(
-            //       value: wrapWithKeepAliveWrapper,
-            //       title: Text('KeepAlive'),
-            //       onChanged: (v) => setState(() => wrapWithKeepAliveWrapper = v!),
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       ),
@@ -334,7 +289,8 @@ class _Page1State extends State<Page1> {
 //BouncingScrollPhysics b;
 
 class ObserveOverscrollPhysics extends AlwaysScrollableScrollPhysics {
-  const ObserveOverscrollPhysics(this.onOverscrollChanged, {ScrollPhysics? parent})
+  const ObserveOverscrollPhysics(this.onOverscrollChanged,
+      {ScrollPhysics? parent})
       : super(parent: parent);
 
   final ValueChanged<double> onOverscrollChanged;

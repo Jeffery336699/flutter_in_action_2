@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:flutter/material.dart';
 
 class InfiniteListView extends StatefulWidget {
   const InfiniteListView({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _InfiniteListViewState extends State<InfiniteListView> {
         if (_words[index] == loadingTag) {
           //不足100条，继续获取数据
           if (_words.length - 1 < 100) {
-            //获取数据
+            ///获取数据,细节之内部走的异步+回调的形式并不会阻塞这之后的代码
             _retrieveData();
             //加载时显示loading
             return Container(

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'dart:math' as math;
 
 class ScrollViewConfiguration extends StatefulWidget {
   const ScrollViewConfiguration({Key? key}) : super(key: key);
@@ -26,7 +24,11 @@ class _ScrollViewConfigurationState extends State<ScrollViewConfiguration> {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Center(child: Text('$index',textScaleFactor: 2,)),
+          child: Center(
+              child: Text(
+            '$index',
+            textScaleFactor: 2,
+          )),
         );
       },
     );
@@ -39,6 +41,9 @@ class _ScrollViewConfigurationState extends State<ScrollViewConfiguration> {
 
   Widget wConfigurationPanel() {
     return ListView(
+      ///该属性表示是否根据子组件的总长度来设置ListView的长度,default=false;
+      ///当listview在一个无边界(滚动方向上)的容器中时,shrinkWrap必须为true
+      ///eg 当listview在Column中时,此时如果shrinkWrap: false则会报错卡死
       shrinkWrap: true,
       children: [
         CheckboxListTile(
@@ -55,6 +60,3 @@ class _ScrollViewConfigurationState extends State<ScrollViewConfiguration> {
     );
   }
 }
-
-
-
