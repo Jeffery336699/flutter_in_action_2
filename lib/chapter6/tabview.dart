@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Page;
+
 import '../common.dart';
 
 class TabViewRoute extends StatelessWidget {
@@ -41,15 +42,26 @@ class _TabViewRoute1State extends State<TabViewRoute1>
           tabs: tabs.map((e) => Tab(text: e)).toList(),
         ),
       ),
+
+      ///TabBarView封装了PageView,你就把它当做PageView使用吧
+      ///这里演示KeepAliveWrapper的强大,状态的保留是否应用(通过keepAlive)
+      ///
+      ///原理:借助还是系统C/S模型的AutomaticKeepAlive状态保留机制,
+      ///子类想改变是否缓存状态就向AutomaticKeepAlive发送一个通知(KeepAliveNotification),S端收到通知就去更改keepAlive的状态
       body: TabBarView(
         //构建
         controller: _tabController,
         children: tabs.map((e) {
           return KeepAliveWrapper(
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(e, textScaleFactor: 5),
+            ///包裹个方便查看页面是否重建的log组件
+            child: LayoutLogPrint(
+              child: Container(
+                alignment: Alignment.center,
+                child: Text(e, textScaleFactor: 5),
+              ),
+              tag: e,
             ),
+            keepAlive: false,
           );
         }).toList(),
       ),
@@ -70,6 +82,8 @@ class TabViewRoute2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List tabs = ["新闻", "历史", "图片"];
+
+    ///借助TabBar和TabBarView在tabController没有设置的情况下,会从组件树向上查找的特性,统一设置它们公共一个DefaultTabController(方便联动)
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
@@ -83,10 +97,14 @@ class TabViewRoute2 extends StatelessWidget {
           //构建
           children: tabs.map((e) {
             return KeepAliveWrapper(
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(e, textScaleFactor: 5),
+              child: LayoutLogPrint(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(e, textScaleFactor: 5),
+                ),
+                tag: e,
               ),
+              keepAlive: true,
             );
           }).toList(),
         ),
