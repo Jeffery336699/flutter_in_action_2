@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../common.dart';
 
+///底层借助RenderSliverSingleBoxAdapter自定义能固定到header的任意组件形式
 class SliverPersistentHeaderToBoxRoute extends StatelessWidget {
   const SliverPersistentHeaderToBoxRoute({Key? key}) : super(key: key);
 
@@ -24,7 +26,7 @@ class SliverPersistentHeaderToBoxRoute extends StatelessWidget {
     var theme = Theme.of(context);
     return Material(
       child: Container(
-        color: fixed ? Colors.white : theme.canvasColor,
+        color: fixed ? Colors.blue : theme.canvasColor,
         child: wTitle('Title 1'),
       ),
       elevation: fixed ? 4 : 0,

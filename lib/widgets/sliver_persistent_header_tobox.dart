@@ -1,5 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+
 import 'extra_info_constraints.dart';
 
 typedef SliverPersistentHeaderToBoxBuilder = Widget Function(
@@ -62,7 +63,7 @@ class _RenderSliverPersistentHeaderToBox extends RenderSliverSingleBoxAdapter {
         // 只要constraints.scrollOffset不为0，则表示已经有内容在当前Sliver下面了（重叠了）
         constraints.scrollOffset != .0,
         constraints.asBoxConstraints(
-          // 我们将剩余的可绘制空间作为 header 的最大高度约束传递给 LayoutBuilder
+          /// 我们将剩余的可绘制空间作为 header 的最大高度约束传递给 LayoutBuilder
           maxExtent: constraints.remainingPaintExtent,
         ),
       ),

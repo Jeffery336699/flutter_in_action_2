@@ -1,6 +1,8 @@
 import 'dart:math';
+
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+
 import 'extra_info_constraints.dart';
 
 typedef SliverFlexibleHeaderBuilder = Widget Function(
@@ -44,7 +46,7 @@ class _SliverFlexibleHeader extends SingleChildRenderObjectWidget {
     this.visibleExtent = 0,
   }) : super(key: key, child: child);
   final double visibleExtent;
-
+  //貌似是在createRenderObject/updateRenderObject这两个方法里做文章
   @override
   RenderObject createRenderObject(BuildContext context) {
     return _FlexibleHeaderRenderSliver(visibleExtent);

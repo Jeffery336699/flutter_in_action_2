@@ -1,7 +1,9 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
-export 'widgets/index.dart';
+
 import 'package:flukit/flukit.dart';
+import 'package:flutter/material.dart';
+
+export 'widgets/index.dart';
 
 final logEmitter = ValueNotifier<LogInfo?>(null);
 
@@ -54,12 +56,17 @@ void drawPieces(Canvas canvas, Rect rect) {
   );
 }
 
-Widget buildSliverList([int count = 5]) {
+Widget buildSliverList([int count = 5, Color? color]) {
   return SliverFixedExtentList(
     itemExtent: 50,
     delegate: SliverChildBuilderDelegate(
       (context, index) {
-        return ListTile(title: Text('$index'), onTap: () => print(index));
+        return ListTile(
+            title: Text(
+              '$index',
+              style: TextStyle(color: color),
+            ),
+            onTap: () => print(index));
       },
       childCount: count,
     ),

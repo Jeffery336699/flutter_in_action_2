@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import '../common.dart';
 import 'package:flukit/flukit.dart';
+import 'package:flutter/material.dart';
+
+import '../common.dart';
 
 class PageScaffold extends StatefulWidget {
   const PageScaffold({
@@ -77,7 +78,8 @@ class Page {
     this.withScaffold = true,
     this.padding = true,
     this.showLog = true,
-  }) : builder = ((_) => child);
+  }) : builder = ((_) =>
+            child); // 初始化参数这里赋值,优先级排在父类构造之间,并且还省去了child的成员变量,貌似是存在build的闭包里了
 
   Page.builder(
     this.title,

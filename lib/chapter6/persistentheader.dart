@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Page;
+
 import '../common.dart';
 
 class PersistentHeaderRoute extends StatelessWidget {
@@ -16,6 +17,8 @@ class PersistentHeaderRoute extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         buildSliverList(),
+
+        ///注意:在使用SliverPersistentHeader时使用的都是pinned:true,也就是固定到顶部
         SliverPersistentHeader(
           pinned: true,
           delegate: SliverHeaderDelegate(
@@ -47,6 +50,7 @@ class PersistentHeaderRoute extends StatelessWidget {
           color: Colors.white,
           child: CustomScrollView(
             slivers: [
+              ///floating:true就是随便滑动出去多远,一往下滑动就能出来
               SliverPersistentHeader(
                 floating: true,
                 delegate: SliverHeaderDelegate.fixedHeight(

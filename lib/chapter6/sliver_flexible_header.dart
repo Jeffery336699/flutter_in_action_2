@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../common.dart';
 
 class SliverFlexibleHeaderRoute extends StatefulWidget {
@@ -18,9 +19,12 @@ class _SliverFlexibleHeaderRouteState extends State<SliverFlexibleHeaderRoute> {
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       slivers: [
+        ///这里面封装了很多逻辑,有点复杂(到时学完layout之后再来看看)
+        ///目前封装暴露出来的还是挺好用的
         SliverFlexibleHeader(
           visibleExtent: _initHeight,
           builder: (context, availableHeight, direction) {
+            print('build--->');
             return GestureDetector(
               onTap: () => print('tap'),
               child: LayoutBuilder(builder: (context, cons) {

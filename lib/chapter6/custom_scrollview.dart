@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart' hide Page;
+import 'package:flutter_in_action_2/ext.dart';
+
 import '../common.dart';
 
 class CustomScrollViewTestRoute extends StatelessWidget {
@@ -15,8 +17,8 @@ class CustomScrollViewTestRoute extends StatelessWidget {
   }
 
   Widget buildSliverAppBar() {
-    //因为本路由没有使用Scaffold，为了让子级Widget(如Text)使用
-    //Material Design 默认的样式风格,我们使用Material作为本路由的根。
+    ///因为本路由没有使用Scaffold，为了让子级Widget(如Text)使用
+    ///Material Design 默认的样式风格,我们使用Material作为本路由的根。
     return Material(
       child: CustomScrollView(
         slivers: <Widget>[
@@ -79,6 +81,8 @@ class CustomScrollViewTestRoute extends StatelessWidget {
       itemCount: 20,
       itemBuilder: (_, index) => ListTile(title: Text('$index')),
     );
+
+    ///这种情况,各自滚动自己的,相互无影响
     return Column(
       children: [
         Expanded(child: listView),
@@ -90,6 +94,8 @@ class CustomScrollViewTestRoute extends StatelessWidget {
 
   Widget buildTwoSliverList() {
     var listView = buildSliverList(10);
+
+    ///CustomScrollView+Sliver系滚动组件(一般是实现按需加载eg.ListView)=可以一起联动组件
     return CustomScrollView(
       slivers: [
         listView,
@@ -104,8 +110,13 @@ class CustomScrollViewTestRoute extends StatelessWidget {
         SliverToBoxAdapter(
           child: SizedBox(
             height: 300,
+
+            ///当前PageView只处理水平滚动方向,而CustomScrollView处理垂直方向滚动,两者并不冲突
             child: PageView(
-              children: const [Text("1"), Text("2")],
+              children: [
+                const Text("1").withBorder(),
+                const Text("2").withBorder(color: Colors.red)
+              ],
             ),
           ),
         ),
