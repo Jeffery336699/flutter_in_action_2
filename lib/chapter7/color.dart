@@ -37,7 +37,7 @@ class _ColorRouteState extends State<ColorRoute> {
         appBar: AppBar(
           title: const Text("颜色"),
         ),
-        body: Column(children: const <Widget>[
+        body: const Column(children: <Widget>[
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: NavBar(color: Colors.blue, title: "标题"),

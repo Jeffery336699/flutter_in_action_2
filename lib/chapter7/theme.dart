@@ -4,7 +4,7 @@ class ThemeTestRoute extends StatefulWidget {
   const ThemeTestRoute({Key? key}) : super(key: key);
 
   @override
-  _ThemeTestRouteState createState() =>  _ThemeTestRouteState();
+  _ThemeTestRouteState createState() => _ThemeTestRouteState();
 }
 
 class _ThemeTestRouteState extends State<ThemeTestRoute> {
@@ -24,19 +24,21 @@ class _ThemeTestRouteState extends State<ThemeTestRoute> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //第一行Icon使用主题中的iconTheme
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: const <Widget>[
-              Icon(Icons.favorite),
-              Icon(Icons.airport_shuttle),
-              Text("  颜色跟随主题"),
-            ]),
+            const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.favorite),
+                  Icon(Icons.airport_shuttle),
+                  Text("  颜色跟随主题"),
+                ]),
             //为第二行Icon自定义颜色（固定为黑色)
             Theme(
               data: themeData.copyWith(
                 iconTheme: themeData.iconTheme.copyWith(color: Colors.black),
               ),
-              child: Row(
+              child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Icon(Icons.favorite),
                     Icon(Icons.airport_shuttle),
                     Text("  颜色固定黑色"),
@@ -46,8 +48,10 @@ class _ThemeTestRouteState extends State<ThemeTestRoute> {
         ),
         floatingActionButton: FloatingActionButton(
             onPressed: () => //切换主题
-                setState(() => _themeColor =
-                    _themeColor == Colors.teal ? Colors.blue : Colors.teal,),
+                setState(
+                  () => _themeColor =
+                      _themeColor == Colors.teal ? Colors.blue : Colors.teal,
+                ),
             child: const Icon(Icons.palette)),
       ),
     );

@@ -1,7 +1,10 @@
 import 'dart:collection';
+
 import 'package:flutter/material.dart';
+
 import 'provider.dart';
 
+///封装得真好,不愧是Flutter中文网的站长级别
 class ProviderRoute extends StatefulWidget {
   const ProviderRoute({Key? key}) : super(key: key);
 
@@ -12,7 +15,6 @@ class ProviderRoute extends StatefulWidget {
 class _ProviderRouteState extends State<ProviderRoute> {
   @override
   void didUpdateWidget(ProviderRoute oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     print("xxx");
   }

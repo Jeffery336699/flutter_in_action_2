@@ -47,7 +47,14 @@ class ShareDataWidget extends InheritedWidget {
 
   //定义一个便捷方法，方便子树中的widget获取共享数据
   static ShareDataWidget? of(BuildContext context) {
-    //return context.dependOnInheritedWidgetOfExactType<ShareDataWidget>();
+    ///flutter                  I  Dependencies change
+    /// flutter                  I  Dependencies change
+    /// flutter                  I  Dependencies change
+    /// flutter                  I  Dependencies change
+    // return context.dependOnInheritedWidgetOfExactType<ShareDataWidget>();
+
+    ///todo flutter                  I  Dependencies change
+    ///todo 仅仅初始化的时候才会回调didChangeDependencies方法,后续点击build都不会被调用
     return context
         .getElementForInheritedWidgetOfExactType<ShareDataWidget>()
         ?.widget as ShareDataWidget;
@@ -68,7 +75,7 @@ class _TestWidget extends StatefulWidget {
 class __TestWidgetState extends State<_TestWidget> {
   @override
   Widget build(BuildContext context) {
-    //使用InheritedWidget中的共享数据
+    ///使用InheritedWidget中的共享数据
     return Text(ShareDataWidget.of(context)!.data.toString());
   }
 

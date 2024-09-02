@@ -77,7 +77,7 @@ class InheritedProvider<T> extends InheritedWidget {
 
   @override
   bool updateShouldNotify(oldWidget) {
-    //在此简单返回true，则每次更新都会调用依赖其的子孙节点的`didChangeDependencies`。
+    ///在此简单返回true，则每次更新都会调用依赖其的子孙节点的`didChangeDependencies`。
     return true;
   }
 }
