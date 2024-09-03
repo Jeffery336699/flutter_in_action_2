@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class DialogTestRoute extends StatefulWidget {
   const DialogTestRoute({Key? key}) : super(key: key);
@@ -204,7 +205,8 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
             )),
           ],
         );
-        //使用AlertDialog会报错
+
+        ///像ListView.builder这样延迟类的组件,使用AlertDialog会报错,可以使用Dialog没问题
         //return AlertDialog(content: child);
         return Dialog(child: child);
       },
@@ -215,6 +217,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
   }
 
   Future<bool?> showDeleteConfirmDialog2() {
+    print('showDeleteConfirmDialog2');
     withTree = false;
     return showDialog<bool>(
       context: context,
@@ -274,10 +277,12 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
               Row(
                 children: <Widget>[
                   const Text("同时删除子目录？"),
+
+                  ///UI的更新拆分出一个小的状态组件,内部自我消耗,外部需要值通过Callback回传回来
                   DialogCheckbox(
                     value: _withTree, //默认不选中
                     onChanged: (bool? value) {
-                      //更新选中状态
+                      ///更新选中状态 todo 这里主要是改变给到外部的值(eg pop),checkbox内部的更新UI其实都做了
                       _withTree = !_withTree;
                     },
                   ),
@@ -319,13 +324,15 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
               Row(
                 children: <Widget>[
                   const Text("同时删除子目录？"),
+
+                  ///对话框3中拆分出一个有状态组件的形式(缩小context范围),已经有官方组件支持了StatefulBuilder
                   StatefulBuilder(
                     builder: (context, _setState) {
                       return Checkbox(
                         value: _withTree, //默认不选中
                         onChanged: (bool? value) {
                           _setState(() {
-                            //更新选中状态
+                            ///此时的更新是通过数据(状态)+setState来驱动,更新选中状态;它是把内部的setState给你带过来了 666
                             _withTree = !_withTree;
                           });
                         },
@@ -369,11 +376,14 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
               Row(
                 children: <Widget>[
                   const Text("同时删除子目录？"),
+
+                  ///缩小context的范围,借助Builder包裹一层,为的是下面context的获取仅仅局限在这个小的范围
                   Builder(
                     builder: (BuildContext context) {
                       return Checkbox(
                         value: _withTree,
                         onChanged: (bool? value) {
+                          ///setState本质是调用了Element#markNeedsBuild方法,然后在frame到来时,刷新组件
                           (context as Element).markNeedsBuild();
                           _withTree = !_withTree;
                         },
@@ -449,14 +459,17 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
       context: context,
       //barrierDismissible: false, //点击遮罩不关闭对话框
       builder: (context) {
-        return UnconstrainedBox(
+        ///由于showDialog中给对话框设置了最小宽度约束,我们可以使用UnconstrainedBox
+        ///先抵消showDialog对宽度的约束,然后再使用SizeBox指定宽度
+        ///tips:SizeBox的宽度设置只能小哟,不能大于顶上对下面的约束(eg.width:double.inflate就会报错,超出父类限制了)
+        return const UnconstrainedBox(
           constrainedAxis: Axis.vertical,
           child: SizedBox(
             width: 280,
             child: AlertDialog(
               content: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
+                children: <Widget>[
                   CircularProgressIndicator(),
                   Padding(
                     padding: EdgeInsets.only(top: 26.0),
@@ -501,7 +514,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
               print(value);
             },
           ),
-        );
+        ).withBorder(bgColor: Colors.blue);
       },
     );
   }
@@ -512,12 +525,15 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
     required WidgetBuilder builder,
     ThemeData? theme,
   }) {
+    ///自定义对话框,这个封装牛皮~
     return showGeneralDialog<T>(
       context: context,
       pageBuilder: (BuildContext buildContext, Animation<double> animation,
           Animation<double> secondaryAnimation) {
+        ///builder把回调往外抛,这里的意思是需要给Builder内部构建出一个具体的Widget(未来)
         final Widget pageChild = Builder(builder: builder);
         return SafeArea(
+          ///有点666,封装并引入主题Theme,外部只需要关心builder构建组件就行
           child: Builder(builder: (BuildContext context) {
             return Theme(data: theme ?? Theme.of(context), child: pageChild);
           }),
@@ -526,8 +542,8 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
       barrierDismissible: barrierDismissible,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       barrierColor: Colors.black87,
-      transitionDuration: const Duration(milliseconds: 150),
-      transitionBuilder: _buildMaterialDialogTransitions,
+      transitionDuration: const Duration(milliseconds: 150), //dialog的显隐动画时长
+      transitionBuilder: _buildMaterialDialogTransitions, //dialog动画
     );
   }
 
@@ -546,13 +562,13 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
   }
 }
 
-// 单独封装一个内部管理选中状态的复选框组件
+/// 单独封装一个内部管理选中状态的复选框组件
 class DialogCheckbox extends StatefulWidget {
   const DialogCheckbox({
     Key? key,
     this.value,
     required this.onChanged,
-  }):super(key:key);
+  }) : super(key: key);
 
   final ValueChanged<bool?> onChanged;
   final bool? value;
@@ -575,10 +591,10 @@ class _DialogCheckboxState extends State<DialogCheckbox> {
     return Checkbox(
       value: value,
       onChanged: (v) {
-        //将选中状态通过事件的形式抛出
+        ///将选中状态通过事件的形式抛出,具体的状态值外部需要
         widget.onChanged(v);
         setState(() {
-          //更新自身选中状态
+          ///更新自身选中状态,UI
           value = v;
         });
       },

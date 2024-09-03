@@ -21,17 +21,18 @@ class _ValueListenableState extends State<ValueListenableRoute> {
       body: Center(
         child: ValueListenableBuilder<int>(
           builder: (BuildContext context, int value, Widget? child) {
-            // builder 方法只会在 _counter 变化时被调用
+            /// builder 方法只会在 _counter 变化时被调用
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 child!,
-                Text('$value 次',textScaleFactor: textScaleFactor),
+                Text('$value 次', textScaleFactor: textScaleFactor),
               ],
             );
           },
           valueListenable: _counter,
-          // 当子组件不依赖变化的数据，且子组件收件开销比较大时，指定 child 属性来缓存子组件非常有用
+
+          /// 当子组件不依赖变化的数据，且子组件收件开销比较大时，指定 child 属性来缓存子组件非常有用
           child: const Text('点击了 ', textScaleFactor: textScaleFactor),
         ),
       ),
