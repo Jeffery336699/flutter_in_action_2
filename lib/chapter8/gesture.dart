@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide Page;
+import 'package:flutter_in_action_2/ext.dart';
+
 import '../common.dart';
 
 class GestureRoute extends StatelessWidget {
@@ -76,12 +78,12 @@ class _DragState extends State<_Drag> with SingleTickerProviderStateMixin {
             child: const CircleAvatar(child: Text("A")),
             //手指按下时会触发此回调
             onPanDown: (DragDownDetails e) {
-              //打印手指按下的位置(相对于屏幕)
+              ///打印手指按下的位置(globalPosition相对于屏幕)
               print("用户手指按下：${e.globalPosition}");
             },
             //手指滑动时会触发此回调
             onPanUpdate: (DragUpdateDetails e) {
-              //用户手指滑动时，更新偏移，重新构建
+              //用户手指滑动时，更新偏移，重新构建;todo delta表示的是一次Update事件的滑动增量
               setState(() {
                 _left += e.delta.dx;
                 _top += e.delta.dy;
@@ -94,7 +96,7 @@ class _DragState extends State<_Drag> with SingleTickerProviderStateMixin {
           ),
         )
       ],
-    );
+    ).withBorder();
   }
 }
 
@@ -114,7 +116,8 @@ class _DragVerticalState extends State<_DragVertical> {
           top: _top,
           child: GestureDetector(
             child: const CircleAvatar(child: Text("A")),
-            //垂直方向拖动事件
+
+            ///垂直方向拖动事件(限制单一方向拖动)
             onVerticalDragUpdate: (DragUpdateDetails details) {
               setState(() {
                 _top += details.delta.dy;
@@ -143,6 +146,8 @@ class _ScaleState extends State<_Scale> {
       child: GestureDetector(
         //指定宽度，高度自适应
         child: Image.asset("./imgs/sea.png", width: _width),
+
+        ///有点不灵敏,貌似轻触就会还原
         onScaleUpdate: (ScaleUpdateDetails details) {
           setState(() {
             //缩放倍数在0.8到10倍之间
@@ -162,6 +167,8 @@ class _GestureRecognizer extends StatefulWidget {
 }
 
 class _GestureRecognizerState extends State<_GestureRecognizer> {
+  ///GestureDetector内部使用了一个或多个GestureRecognizer来识别各种手势
+  ///GestureRecognizer作用是通过Listener来将原始指针事件转换为语义手势
   final TapGestureRecognizer _tapGestureRecognizer = TapGestureRecognizer();
   bool _toggle = false; //变色开关
 
@@ -185,6 +192,8 @@ class _GestureRecognizerState extends State<_GestureRecognizer> {
                 fontSize: 30.0,
                 color: _toggle ? Colors.blue : Colors.red,
               ),
+
+              ///Flutter中TextSpan中给你暴露个recognizer玩玩
               recognizer: _tapGestureRecognizer
                 ..onTap = () {
                   setState(() {
