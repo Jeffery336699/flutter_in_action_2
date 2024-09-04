@@ -22,20 +22,20 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute>
     );
 
     //匀速
-    //图片宽高从0变到300
-    animation = Tween(begin: 0.0, end: 300.0).animate(controller)
-      ..addListener(() {
-        setState(() => {});
-      });
+    //图片宽高从0变到300,Tween估值器把首尾的值固定,在这个范围活动
+    // animation = Tween(begin: 0.0, end: 300.0).animate(controller)
+    //   ..addListener(() {
+    //     setState(() => {});
+    //   });
 
-//    //使用弹性曲线
-//    animation=CurvedAnimation(parent: controller, curve: Curves.bounceIn);
-//    //图片宽高从0变到300
-//    animation =  Tween(begin: 0.0, end: 300.0).animate(animation)
-//      ..addListener(() {
-//        setState(() {
-//        });
-//      });
+    ///使用弹性曲线
+    animation = CurvedAnimation(parent: controller, curve: Curves.bounceIn);
+
+    ///图片宽高从0变到300,animate(animation)中animation在这个范围[0,300]活动,值会被更新到animation.value中
+    animation = Tween(begin: 0.0, end: 300.0).animate(animation)
+      ..addListener(() {
+        setState(() {});
+      });
 
     //启动动画(正向执行)
     controller.forward();
@@ -58,5 +58,4 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute>
     controller.dispose();
     super.dispose();
   }
-
 }

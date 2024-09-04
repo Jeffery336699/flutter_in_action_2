@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///借助AnimatedWidget简化addListener+setState的方式
 class AnimatedImage extends AnimatedWidget {
   const AnimatedImage({
     Key? key,
@@ -8,8 +9,9 @@ class AnimatedImage extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
+    //就是上面构造传递的animation
     final animation = listenable as Animation<double>;
-    return  Center(
+    return Center(
       child: Image.asset(
         "imgs/avatar.png",
         width: animation.value,
@@ -23,7 +25,7 @@ class ScaleAnimationRoute1 extends StatefulWidget {
   const ScaleAnimationRoute1({Key? key}) : super(key: key);
 
   @override
-  _ScaleAnimationRouteState createState() =>  _ScaleAnimationRouteState();
+  _ScaleAnimationRouteState createState() => _ScaleAnimationRouteState();
 }
 
 class _ScaleAnimationRouteState extends State<ScaleAnimationRoute1>
@@ -34,10 +36,12 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute1>
   @override
   initState() {
     super.initState();
-    controller =  AnimationController(
-        duration: const Duration(seconds: 2), vsync: this);
+    controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
     //图片宽高从0变到300
-    animation =  Tween(begin: 0.0, end: 300.0).animate(controller);
+    CurvedAnimation curveAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.bounceInOut);
+    animation = Tween(begin: 0.0, end: 300.0).animate(curveAnimation);
     //启动动画
     controller.forward();
   }

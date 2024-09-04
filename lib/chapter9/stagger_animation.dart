@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///交织动画,在统一的controller下,组合多个动画,串行or并行 执行
 class StaggerRoute extends StatefulWidget {
   const StaggerRoute({Key? key}) : super(key: key);
 
@@ -19,7 +20,6 @@ class _StaggerRouteState extends State<StaggerRoute>
       vsync: this,
     );
   }
-
 
   @override
   void dispose() {
@@ -70,11 +70,12 @@ class StaggerAnimation extends StatelessWidget {
     Key? key,
     required this.controller,
   }) : super(key: key) {
-    //高度动画
+    //高度动画; Tween这里估值器,确定起点~重点的任意类型参数
     height = Tween<double>(
       begin: .0,
       end: 300.0,
     ).animate(
+      ///并入插值器曲线,并且只取0~0.6这段间隔
       CurvedAnimation(
         parent: controller,
         curve: const Interval(
@@ -130,6 +131,7 @@ class StaggerAnimation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///AnimatedBuilder最终返回的是builder方法里构建出来的widget
     return AnimatedBuilder(
       builder: _buildAnimation,
       animation: controller,

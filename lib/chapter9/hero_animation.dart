@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Page;
+
 import '../common.dart';
 
 class HeroAnimationRoute extends StatelessWidget {
@@ -24,6 +25,7 @@ class HeroAnimationRouteA extends StatelessWidget {
       child: Column(
         children: <Widget>[
           InkWell(
+            ///Hero飞行动画,共享元素动画
             child: Hero(
               tag: "avatar", //唯一标记，前后两个路由页Hero的tag必须相同
               child: ClipOval(
@@ -41,6 +43,17 @@ class HeroAnimationRouteA extends StatelessWidget {
                   animation,
                   secondaryAnimation,
                 ) {
+                  /**
+                   *  flutter                  I  animation=0.0
+                      flutter                  I  animation=0.16666666666666669
+                      flutter                  I  animation=0.43951666666666667
+                      flutter                  I  animation=0.6608633333333334
+                      flutter                  I  animation=0.8812500000000001
+                      flutter                  I  animation=1.0
+                   */
+                  animation.addListener(() {
+                    print('animation=${animation.value}');
+                  });
                   return FadeTransition(
                     opacity: animation,
                     child: Scaffold(
@@ -78,6 +91,7 @@ class HeroAnimationRouteB extends StatelessWidget {
   }
 }
 
+///current图标到target图标的一个线性插值lerp变化,通过动画
 class CustomHeroAnimation extends StatefulWidget {
   const CustomHeroAnimation({Key? key}) : super(key: key);
 
@@ -99,8 +113,8 @@ class _CustomHeroAnimationState extends State<CustomHeroAnimation>
 
   @override
   void initState() {
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
     _animation = CurvedAnimation(
       parent: _controller,
       curve: Curves.easeIn,
@@ -153,12 +167,15 @@ class _CustomHeroAnimationState extends State<CustomHeroAnimation>
         child: Stack(
           alignment: AlignmentDirectional.topCenter,
           children: [
+            ///初始化状态显示个静态的小图
             if (showChild1)
               AfterLayout(
                 //获取小图在Stack中占用的Rect信息
                 callback: (value) => child1Rect = _getRect(value),
                 child: child1,
               ),
+
+            ///点击后走这里动画
             if (!showChild1)
               AnimatedBuilder(
                 animation: _animation,
