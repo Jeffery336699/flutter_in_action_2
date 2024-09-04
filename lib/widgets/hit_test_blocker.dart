@@ -2,7 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class HitTestBlocker extends SingleChildRenderObjectWidget {
-  HitTestBlocker({
+  const HitTestBlocker({
     Key? key,
     this.up = true,
     this.down = false,
@@ -10,10 +10,15 @@ class HitTestBlocker extends SingleChildRenderObjectWidget {
     Widget? child,
   }) : super(key: key, child: child);
 
-  /// Block hit test up. if true , `hitTest()` always return false.
+  /// Block hit test up.
+  ///
+  /// if true , `hitTest()` always return false.
+  /// 也让兄弟(节点)们也都有机会去hitTest
   final bool up;
 
   /// Block hit test down. if true, skip `hitTestChildren()`.
+  ///
+  /// 目前为false:不跳过`hitTestChildren()`,让子类也能正常响应hitTest
   final bool down;
 
   /// The return value of `hitTestSelf`

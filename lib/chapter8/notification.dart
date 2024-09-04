@@ -12,6 +12,7 @@ class NotificationRoute extends StatefulWidget {
 class NotificationRouteState extends State<NotificationRoute> {
   String _msg = "";
   final pageController = PageController();
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,10 @@ class NotificationRouteState extends State<NotificationRoute> {
       child: NotificationListener<MyNotification>(
         onNotification: (notification) {
           setState(() {
-            _msg += notification.msg + "  ";
+            // _msg += notification.msg + "  ";
+            _msg += notification.msg + "\n";
           });
-          return false;
+          return false; //不拦截,继续往上冒泡
         },
         child: Center(
           child: Column(
@@ -37,10 +39,12 @@ class NotificationRouteState extends State<NotificationRoute> {
 //           child: Text("Send Notification"),
 //          ),
               Builder(
+                ///借助Builder缩小context的范围
                 builder: (context) {
                   return ElevatedButton(
-                    //按钮点击时分发通知
-                    onPressed: () => MyNotification("Hi").dispatch(context),
+                    ///按钮点击时分发通知
+                    onPressed: () =>
+                        MyNotification("Hi" * (++count)).dispatch(context),
                     child: const Text("Send Notification"),
                   );
                 },
@@ -54,6 +58,7 @@ class NotificationRouteState extends State<NotificationRoute> {
   }
 }
 
+///自定义通过
 class MyNotification extends Notification {
   MyNotification(this.msg);
 

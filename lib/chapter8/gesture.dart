@@ -225,6 +225,9 @@ class _BothDirectionTestState extends State<_BothDirectionTest> {
         Positioned(
           top: _top,
           left: _left,
+
+          ///onVerticalDragUpdate与onHorizontalDragUpdate在一次完整事件过程中,
+          ///由最开始按下时谁竞争所得(后续事件只会给到该方向)
           child: GestureDetector(
             child: const CircleAvatar(child: Text("A")),
             //垂直方向拖动事件

@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'dart:ui' as ui;
 import 'dart:math' as math;
+import 'dart:ui' as ui;
+
+import 'package:flutter/widgets.dart';
 
 class WaterMark extends StatefulWidget {
   WaterMark({
@@ -122,7 +121,7 @@ class TextWaterMarkPainter extends WaterMarkPainter {
         rotate = rotate ?? 0,
         padding = padding ?? const EdgeInsets.all(10.0),
         textStyle = textStyle ??
-            TextStyle(
+            const TextStyle(
               color: Color.fromARGB(20, 0, 0, 0),
               fontSize: 14,
             );

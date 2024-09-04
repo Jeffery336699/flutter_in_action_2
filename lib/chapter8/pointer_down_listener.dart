@@ -1,6 +1,19 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+class PointerDownListenerRoute extends StatelessWidget {
+  const PointerDownListenerRoute({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PointerDownListener(
+      child: const Text('Click me'),
+      onPointerDown: (e) => print('down'),
+    );
+  }
+}
+
+///有点类似Listener的原理,简陋很多
 class PointerDownListener extends SingleChildRenderObjectWidget {
   const PointerDownListener({Key? key, this.onPointerDown, Widget? child})
       : super(key: key, child: child);
@@ -30,16 +43,3 @@ class RenderPointerDownListener extends RenderProxyBox {
     if (event is PointerDownEvent) onPointerDown?.call(event);
   }
 }
-
-class PointerDownListenerRoute extends StatelessWidget {
-  const PointerDownListenerRoute({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PointerDownListener(
-      child: const Text('Click me'),
-      onPointerDown: (e) => print('down'),
-    );
-  }
-}
-
