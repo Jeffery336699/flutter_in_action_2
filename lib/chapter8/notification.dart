@@ -35,6 +35,7 @@ class NotificationRouteState extends State<NotificationRoute> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
 //           ElevatedButton(
+              ///todo 无法工作,因为context属于与 NotificationListener在同一级目录,通知监听是父类组件监听后代组件发出的通知
 //           onPressed: () => MyNotification("Hi").dispatch(context),
 //           child: Text("Send Notification"),
 //          ),
