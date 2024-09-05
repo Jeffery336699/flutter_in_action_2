@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart' hide Page;
+import 'package:flutter_in_action_2/chapter15/fractional_translation_route.dart';
 
 import 'common.dart';
 import 'routes.dart';
@@ -224,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("动画切换组件(AnimatedSwitcher)",
                     const AnimatedSwitcherCounterRoute()),
                 Page("动画切换组件高级用法", const AnimatedSwitcherRoute()),
-                Page("动画过渡组件", const AnimatedWidgetsTest()),
+                Page("动画过渡组件", const AnimatedWidgetsTest(), showLog: false),
               ]),
             ),
             ExpansionTile(
@@ -288,6 +289,13 @@ class _MyHomePageState extends State<MyHomePage> {
             //         padding: false),
             //   ]),
             // ),
+
+            ExpansionTile(
+              title: const Text("自我测试"),
+              children: _generateItem(context, [
+                Page("FractionalTranslation组件demo", const FTRoute()),
+              ]),
+            ),
           ],
         ));
   }
