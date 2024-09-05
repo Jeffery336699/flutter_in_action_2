@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../widgets/index.dart';
 
 class GradientButtonRoute extends StatefulWidget {
@@ -28,7 +29,7 @@ class _GradientButtonRouteState extends State<GradientButtonRoute> {
         ),
         GradientButton(
           height: 50.0,
-          //borderRadius: const BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
           colors: [Colors.lightBlue.shade300, Colors.blueAccent],
           child: const Text("Submit"),
           onPressed: onTap,
@@ -36,6 +37,7 @@ class _GradientButtonRouteState extends State<GradientButtonRoute> {
       ],
     );
   }
+
   onTap() {
     print("button click");
   }

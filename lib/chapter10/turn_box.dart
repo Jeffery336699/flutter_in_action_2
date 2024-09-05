@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../widgets/index.dart';
 
 class TurnBoxRoute extends StatefulWidget {
@@ -18,6 +19,7 @@ class _TurnBoxRouteState extends State<TurnBoxRoute> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TurnBox(
+            key: const ValueKey("1"),
             turns: _turns,
             speed: 500,
             child: const Icon(
@@ -26,6 +28,7 @@ class _TurnBoxRouteState extends State<TurnBoxRoute> {
             ),
           ),
           TurnBox(
+            key: const ValueKey("2"),
             turns: _turns,
             speed: 1000,
             child: const Icon(

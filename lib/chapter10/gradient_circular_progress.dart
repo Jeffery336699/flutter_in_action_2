@@ -1,5 +1,7 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
+
 import '../widgets/index.dart';
 
 class GradientCircularProgressRoute extends StatefulWidget {
@@ -7,7 +9,7 @@ class GradientCircularProgressRoute extends StatefulWidget {
 
   @override
   GradientCircularProgressRouteState createState() {
-    return  GradientCircularProgressRouteState();
+    return GradientCircularProgressRouteState();
   }
 }
 
@@ -22,7 +24,7 @@ class GradientCircularProgressRouteState
       vsync: this,
       duration: const Duration(seconds: 3),
     );
-    bool isForward = true;
+    bool isForward = true; //姑且认为这个值是个向量,表示刚刚的趋势是从正向还是反向
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.forward) {
         isForward = true;
@@ -69,6 +71,7 @@ class GradientCircularProgressRouteState
                             colors: const [Colors.blue, Colors.blue],
                             radius: 50.0,
                             stokeWidth: 3.0,
+                            backgroundColor: Colors.green.shade300,
                             value: _animationController.value,
                           ),
                           GradientCircularProgressIndicator(
@@ -78,7 +81,11 @@ class GradientCircularProgressRouteState
                             value: _animationController.value,
                           ),
                           GradientCircularProgressIndicator(
-                            colors: const [Colors.red, Colors.orange, Colors.red],
+                            colors: const [
+                              Colors.red,
+                              Colors.orange,
+                              Colors.red
+                            ],
                             radius: 50.0,
                             stokeWidth: 5.0,
                             value: _animationController.value,
@@ -96,7 +103,11 @@ class GradientCircularProgressRouteState
                           TurnBox(
                             turns: 1 / 8,
                             child: GradientCircularProgressIndicator(
-                              colors: const [Colors.red, Colors.orange, Colors.red],
+                              colors: const [
+                                Colors.red,
+                                Colors.orange,
+                                Colors.red
+                              ],
                               radius: 50.0,
                               stokeWidth: 5.0,
                               strokeCapRound: true,
@@ -165,9 +176,9 @@ class GradientCircularProgressRouteState
                             child: SizedBox(
                               //width: 100.0,
                               child: TurnBox(
-                                turns: .75,
+                                turns: -1 / 4,
                                 child: GradientCircularProgressIndicator(
-                                  colors: [Colors.teal, Colors.cyan.shade500],
+                                  colors: [Colors.red, Colors.blue.shade900],
                                   radius: 100.0,
                                   stokeWidth: 8.0,
                                   value: _animationController.value,
@@ -186,7 +197,6 @@ class GradientCircularProgressRouteState
                           alignment: Alignment.center,
                           children: <Widget>[
                             Positioned(
-                              height: 200.0,
                               top: .0,
                               child: TurnBox(
                                 turns: .75,

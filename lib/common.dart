@@ -13,7 +13,7 @@ void drawChessboard(Canvas canvas, Rect rect) {
     ..isAntiAlias = true
     ..style = PaintingStyle.fill //填充
     ..color = const Color(0xFFDCC48C);
-  canvas.drawRect(rect, paint);
+  canvas.drawRect(rect, paint); // 这里仅仅绘制的是一个矩形,没有外边框线的
 
   //画棋盘网格
   paint
@@ -21,7 +21,7 @@ void drawChessboard(Canvas canvas, Rect rect) {
     ..color = Colors.black38
     ..strokeWidth = 1.0;
 
-  //画横线
+  //画横线 todo 此时的rect区域为 Rect.fromLTRB(0.0, 0.0, 300.0, 300.0)
   for (int i = 0; i <= 15; ++i) {
     double dy = rect.top + rect.height / 15 * i;
     canvas.drawLine(Offset(rect.left, dy), Offset(rect.right, dy), paint);
