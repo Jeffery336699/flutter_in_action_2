@@ -16,8 +16,10 @@ class _CustomCheckboxTestState extends State<CustomCheckboxTest> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          ///这里是对CustomCheckbox的调度动画进一步抽离出来,成为一个RenderObjectAnimationMixin
           CustomCheckbox2(
             value: _checked,
             onChanged: _onChange,
