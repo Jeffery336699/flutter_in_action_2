@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/widgets.dart';
 
 class WaterMark extends StatefulWidget {
-  WaterMark({
+  const WaterMark({
     Key? key,
     this.repeat = ImageRepeat.repeat,
     required this.painter,
@@ -56,6 +56,12 @@ class _WaterMarkState extends State<WaterMark> {
     );
   }
 
+  // 在Flutter中，StatefulWidget的State类包含一个叫做didUpdateWidget
+  // 的生命周期方法。当与State对象相关联的Widget在Widget树中重建时，如果新的Widget的runtimeType和旧Widget
+  // 的一样，但是任何一个属性发生了变化，Flutter框架就会调用didUpdateWidget方法。
+
+  // didUpdateWidget方法只会在Widget的key和类型未变且作为StatefulWidget
+  // 的一部分被重新构建时调用。
   @override
   void didUpdateWidget(WaterMark oldWidget) {
     // 如果画笔发生了变化（类型或者配置）则重新绘制水印
@@ -214,7 +220,7 @@ class TextWaterMarkPainter extends WaterMarkPainter {
     //文本占用的真实高度
     final textHeight = painter.height;
 
-    // 将弧度转化为度数
+    // 将度数转化为弧度
     final radians = math.pi * rotate / 180;
 
     //通过三角函数计算旋转后的位置和size
@@ -239,7 +245,8 @@ class TextWaterMarkPainter extends WaterMarkPainter {
       );
     }
     canvas.rotate(radians);
-    // 绘制文本
+
+    /// 绘制文本
     painter.paint(canvas, Offset.zero);
 
     return Size(

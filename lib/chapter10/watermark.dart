@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Page;
+
 import '../common.dart';
 
 class WatermarkRoute extends StatelessWidget {
@@ -20,15 +21,16 @@ class WatermarkRoute extends StatelessWidget {
 
   Widget wTextPainterTest() {
     // 我们想提前知道 Text 组件的大小
-    Text text = const Text('flutter@wendux', style: const TextStyle(fontSize: 18));
+    Text text = const Text('flutter@wendux', style: TextStyle(fontSize: 18));
     // 使用 TextPainter 来测量
-    TextPainter painter =TextPainter(textDirection: TextDirection.ltr);
+    TextPainter painter = TextPainter(textDirection: TextDirection.ltr);
     // 将 Text 组件文本和样式透传给TextPainter
-    painter.text = TextSpan(text: text.data,style:text.style);
+    painter.text = TextSpan(text: text.data, style: text.style);
     // 开始布局测量，调用 layout 后就能获取文本大小了
     painter.layout();
-    // 自定义组件 AfterLayout 可以在布局结束后获取子组件的大小，我们用它来验证一下
-    // TextPainter 测量的宽高是否正确
+
+    /// 自定义组件 AfterLayout 可以在布局结束后获取子组件的大小，我们用它来验证一下
+    /// TextPainter 测量的宽高是否正确(理论应该是一样的,书上也是这样)
     return AfterLayout(
       callback: (RenderAfterLayout value) {
         // 输出日志
@@ -45,6 +47,7 @@ class WatermarkRoute extends StatelessWidget {
       children: [
         wPage(),
         IgnorePointer(
+          //IgnorePointer 它能控制其子小部件是否响应指针（触摸或光标）事件
           child: WaterMark(
             painter: TextWaterMarkPainter(
               text: 'Flutter 中国 @wendux',
@@ -117,7 +120,7 @@ class WatermarkRoute extends StatelessWidget {
   }
 
   Widget wTextWaterMarkWithOverflowBox() {
-    Future.delayed(const Duration(milliseconds: 200),()=>print('dd'));
+    Future.delayed(const Duration(milliseconds: 200), () => print('dd'));
     return Stack(
       children: [
         wPage(),

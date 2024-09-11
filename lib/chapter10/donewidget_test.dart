@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+
 import 'done_widget.dart';
-import '../common.dart';
 
 class DoneWidgetTestRoute extends StatefulWidget {
   const DoneWidgetTestRoute({Key? key}) : super(key: key);
@@ -22,19 +22,34 @@ class _DoneWidgetTestRouteState extends State<DoneWidgetTestRoute> {
         });
       },
       child: Center(
-        child: Visibility(
-          visible: show,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              DoneWidget(outline: true),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text("操作成功"),
+        child: Column(
+          children: <Widget>[
+            Visibility(
+              visible: show,
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DoneWidget(outline: true),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Text("操作成功"),
+                  ),
+                  DoneWidget(),
+                ],
               ),
-              DoneWidget(),
-            ],
-          ),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DoneWidget(outline: true, show: show),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Text("操作成功-2"),
+                ),
+                DoneWidget(show: show),
+              ],
+            )
+          ],
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -61,7 +62,7 @@ class RenderCustomCheckbox extends RenderBox {
 
   int? _lastTimeStamp;
 
-  Duration get duration => const Duration(milliseconds: 150);
+  Duration get duration => const Duration(milliseconds: 2500);
 
   AnimationStatus _animationStatus = AnimationStatus.completed;
 
@@ -194,7 +195,7 @@ class RenderCustomCheckbox extends RenderBox {
       pointerId = event.pointer;
     } else if (pointerId == event.pointer) {
       // 判断手指抬起时是在组件范围内的话才触发onChange
-      if(size.contains(event.localPosition)) {
+      if (size.contains(event.localPosition)) {
         onChanged?.call(!value);
       }
     }

@@ -1,6 +1,8 @@
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 
+///在使用Mixin时，on关键字用来指定Mixin能够被混入（mixin）的类的类型。
+///这是一种限制，确保Mixin只被应用到适当的类上，从而可以安全地使用预期的方法或属性
 mixin RenderObjectAnimationMixin on RenderObject {
   double _progress = 0;
   int? _lastTimeStamp;
