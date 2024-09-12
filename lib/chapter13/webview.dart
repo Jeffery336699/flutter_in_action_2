@@ -20,7 +20,7 @@ class _WebViewTestState extends State<WebViewTest> {
         onProgress: (progress) => print(progress),
         onPageStarted: (url) => print('start loading: $url'),
         onPageFinished: (url) => print('load finished:$url'),
-        onWebResourceError: (err) => print(err.description),
+        onWebResourceError: (err) => print('resource error:${err.description}'),
         javascriptChannels: <JavascriptChannel>{
           _toasterJavascriptChannel(context),
         },
