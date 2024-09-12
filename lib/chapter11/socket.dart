@@ -19,7 +19,7 @@ class SocketRoute extends StatelessWidget {
   _request() async {
     //建立连接
     var socket = await Socket.connect("baidu.com", 80);
-    //根据http协议，发送请求头
+    //根据http协议，发送请求头; todo 纯纯模仿http协议,进行最底层的网络请求
     socket.writeln("GET / HTTP/1.1");
     socket.writeln("Host:baidu.com");
     socket.writeln("Connection:close");

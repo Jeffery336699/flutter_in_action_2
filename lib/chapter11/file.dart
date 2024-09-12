@@ -1,10 +1,11 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FileOperationRoute extends StatefulWidget {
-  FileOperationRoute({Key? key}) : super(key: key);
+  const FileOperationRoute({Key? key}) : super(key: key);
 
   @override
   _FileOperationRouteState createState() => _FileOperationRouteState();
@@ -27,6 +28,9 @@ class _FileOperationRouteState extends State<FileOperationRoute> {
   Future<File> _getLocalFile() async {
     // 获取应用目录
     String dir = (await getApplicationDocumentsDirectory()).path;
+
+    /// dir:/data/user/0/club.flutterchina.book/app_flutter
+    print('dir:$dir');
     return File('$dir/counter.txt');
   }
 
@@ -52,14 +56,14 @@ class _FileOperationRouteState extends State<FileOperationRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('文件操作')),
+      appBar: AppBar(title: const Text('文件操作')),
       body: Center(
         child: Text('点击了 $_counter 次'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

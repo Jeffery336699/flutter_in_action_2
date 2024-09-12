@@ -247,9 +247,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ExpansionTile(
               title: const Text("文件与网络"),
               children: _generateItem(context, [
-                Page("文件操作", FileOperationRoute(), withScaffold: false),
-                Page("Http请求", HttpTestRoute()),
-                Page("WebSocket", WebSocketRoute(), withScaffold: false),
+                Page("文件操作", const FileOperationRoute(), withScaffold: false),
+                Page("Http请求", const HttpTestRoute()),
+                Page("WebSocket", const WebSocketRoute(), withScaffold: false),
                 Page("Socket", const SocketRoute()),
               ]),
             ),
