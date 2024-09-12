@@ -4,6 +4,7 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart' hide Page;
 import 'package:flutter_in_action_2/chapter15/fractional_translation_route.dart';
 
+import 'chapter15/overflow_box_route.dart';
 import 'common.dart';
 import 'routes.dart';
 
@@ -294,6 +295,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text("自我测试"),
               children: _generateItem(context, [
                 Page("FractionalTranslation组件demo", const FTRoute()),
+                Page("OverflowBox组件demo", const OverflowBoxRoute()),
               ]),
             ),
           ],

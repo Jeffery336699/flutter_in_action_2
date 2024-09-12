@@ -17,7 +17,7 @@ class TranslateWithExpandedPaintingArea extends StatelessWidget {
       builder: (context, constraints) {
         final dx = offset.dx.abs();
         final dy = offset.dy.abs();
-
+        print('dx=$dx,dy=$dy');
         Widget widget = OverflowBox(
           //平移多少，则子组件相应轴的长度增加多少
           minWidth: constraints.minWidth + dx,
