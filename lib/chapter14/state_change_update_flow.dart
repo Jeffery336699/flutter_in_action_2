@@ -15,7 +15,7 @@ class _StateChangeTestState extends State<StateChangeTest> {
     final schedulerPhase = SchedulerBinding.instance.schedulerPhase;
     if (schedulerPhase == SchedulerPhase.persistentCallbacks) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        setState(fn);
+        fn();
       });
     } else {
       setState(fn);
@@ -32,21 +32,37 @@ class _StateChangeTestState extends State<StateChangeTest> {
 
   @override
   Widget build(BuildContext context) {
-    // 下面代码不会报错，因为在build时当前组件的dirty为true,而setState中
-    // 会先判断当前dirty值，如果为true会直接返回
-    setState(() {
-      ++index;
-    });
-    return Text('$index');
-    // //build阶段不能调用setState
+    /// 下面代码不会报错，因为在build时当前组件的dirty为true,而setState中
+    /// 会先判断当前dirty值，如果为true会直接返回
+    // setState(() {
+    //   ++index;
+    // });
+    // return Text('$index');
+
+    // todo build阶段不能调用setState
     // return LayoutBuilder(
     //   builder: (context, c) {
+    //     //SchedulerPhase.persistentCallbacks
     //     print(SchedulerBinding.instance.schedulerPhase);
     //     setState(() {
     //       ++index;
     //     });
-    //     return Text('xx');
+    //     return const Text('xx');
     //   },
     // );
+
+    /// todo 安全更新版
+    return LayoutBuilder(
+      builder: (context, c) {
+        //SchedulerPhase.persistentCallbacks
+        print(SchedulerBinding.instance.schedulerPhase);
+        update(() {
+          //update 此时 SchedulerPhase.postFrameCallbacks
+          print('update 此时 ${SchedulerBinding.instance.schedulerPhase}');
+          ++index;
+        });
+        return Text('xx-$index');
+      },
+    );
   }
 }

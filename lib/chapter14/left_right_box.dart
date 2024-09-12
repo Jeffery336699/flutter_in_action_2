@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class LeftRightBox extends MultiChildRenderObjectWidget {
-  LeftRightBox({
+  const LeftRightBox({
     Key? key,
     required List<Widget> children,
   })  : assert(children.length == 2, "只能传两个children"),
@@ -25,8 +25,9 @@ class RenderLeftRight extends RenderBox
         RenderBoxContainerDefaultsMixin<RenderBox, LeftRightParentData> {
   @override
   void setupParentData(RenderBox child) {
-    if (child.parentData is! LeftRightParentData)
+    if (child.parentData is! LeftRightParentData) {
       child.parentData = LeftRightParentData();
+    }
   }
 
   @override
@@ -86,8 +87,9 @@ class LeftRightBoxTestRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LeftRightBox(children: [
-      Text("国漫精选"),
-      GestureDetector(onTap: () => print("点击更多"), child: Text("更多》")),
+      const Text("国漫精选").withBorder(),
+      GestureDetector(onTap: () => print("点击更多"), child: const Text("更多》"))
+          .withBorder(color: Colors.red),
     ]);
   }
 }

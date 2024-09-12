@@ -33,6 +33,26 @@ void main() {
     // Redirect error log event when error.
     logEmitter.value = LogInfo(true, details.toString());
   };
+
+  // runApp(const ContainerApp());
+}
+
+///演示根组件RenderView,默认其对child的约束为固定屏幕大小(子类不加其他操作的话,会撑满屏幕)
+///解决办法:可以引入一个中间组件,让其满足遵循父组件的约束,然后对子组件传递新的约束
+class ContainerApp extends StatelessWidget {
+  const ContainerApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Widget container = Container(
+      width: 200,
+      height: 200,
+      color: Colors.green,
+    );
+    return UnconstrainedBox(
+      child: container,
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -268,7 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ExpansionTile(
               title: const Text("Flutter原理"),
               children: _generateItem(context, [
-                Page("图片加载原理与缓存", ImageInternalTestRoute()),
+                Page("图片加载原理与缓存", const ImageInternalTestRoute()),
                 Page("CustomCenter", const MyCenterRoute()),
                 Page("LeftRightBox", const LeftRightBoxTestRoute()),
                 Page("约束详解", const ConstraintsTest(), withScaffold: false),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class CustomCenter1 extends SingleChildRenderObjectWidget {
   const CustomCenter1({Key? key, required Widget child})
@@ -34,6 +34,8 @@ class RenderCustomCenter1 extends RenderBox
 
     BoxParentData parentData = child!.parentData as BoxParentData;
     // 居中显示
+    ///size=Size(328.0, 50.0)  ,  child!.size=Size(50.0, 50.0)
+    print('size=$size  ,  child!.size=${child!.size}');
     parentData.offset = ((size - child!.size) as Offset) / 2;
   }
 
@@ -53,6 +55,7 @@ class RenderCustomCenter1 extends RenderBox
   void paint(PaintingContext context, Offset offset) {
     BoxParentData parentData = child!.parentData as BoxParentData;
     // 绘制子组件
+    print('paint --> offset=$offset , parentData.offset=${parentData.offset}');
     context.paintChild(child!, offset + parentData.offset);
   }
 }
@@ -67,6 +70,7 @@ class CustomCenter2 extends SingleChildRenderObjectWidget {
   }
 }
 
+///RenderObject采用子类RenderShiftedBox,他帮我们实现了layout之外的一些功能
 class RenderCustomCenter2 extends RenderShiftedBox {
   RenderCustomCenter2({RenderBox? child}) : super(child);
 
@@ -115,9 +119,22 @@ class _MyCenterRouteState extends State<MyCenterRoute> {
                 print("tap");
               });
             },
-            child: Container(width: 50, height: 50, color: Colors.red),
-          ),
+            child: Container(width: 50, height: 50, color: Colors.pinkAccent),
+          ).withBorder(),
+        ).withBorder(),
+        const SizedBox(
+          height: 20,
         ),
+        CustomCenter2(
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                print("tap");
+              });
+            },
+            child: Container(width: 50, height: 50, color: Colors.green),
+          ).withBorder(),
+        ).withBorder(),
       ],
     );
   }
