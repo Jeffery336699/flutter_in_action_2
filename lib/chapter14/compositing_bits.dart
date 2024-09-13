@@ -18,23 +18,33 @@ class CustomRotatedBoxTest extends StatelessWidget {
             textScaleFactor: 5,
           ),
         ),
+        CustomRotatedBox(
+          child: RepaintBoundary(
+            child: Text(
+              "A",
+              textScaleFactor: 5,
+            ),
+          ),
+        ),
+
+        ///系统已经帮我们封装好了变化类组件,内部的layer合成都帮我们做好了
         RotatedBox(
-          quarterTurns: 4,
-          child: CustomRotatedBox(
-            child: Center(
-              child: Text(
-                "A",
-                textScaleFactor: 3,
-              ),
+          quarterTurns: 1,
+          child: RepaintBoundary(
+            child: Text(
+              "A",
+              textScaleFactor: 5,
             ),
           ),
         ),
 
         ///终极版本,直接使用内置的composite
         CustomRotatedBox2(
-          child: Text(
-            "A",
-            textScaleFactor: 7,
+          child: RepaintBoundary(
+            child: Text(
+              "A",
+              textScaleFactor: 5,
+            ),
           ),
         ),
       ]),
