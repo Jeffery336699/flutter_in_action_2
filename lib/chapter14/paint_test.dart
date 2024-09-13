@@ -1,4 +1,5 @@
 import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_in_action_2/common.dart';
@@ -11,7 +12,6 @@ class PaintTest extends StatefulWidget {
 }
 
 class _PaintTestState extends State<PaintTest> {
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -21,7 +21,7 @@ class _PaintTestState extends State<PaintTest> {
           const ChessWidget(),
           ElevatedButton(
             onPressed: () {
-              setState(() => null);
+              setState(() {});
             },
             child: const Text("setState"),
           ),
@@ -69,16 +69,15 @@ class RenderChess extends RenderBox {
       ..picture = recorder.endRecording();
   }
 
-
   @override
   void paint(PaintingContext context, Offset offset) {
     Rect rect = offset & size;
     //检查棋盘大小是否需要变化，如果变化，则需要重新绘制棋盘并缓存
     _checkIfChessboardNeedsUpdate(rect);
-    //将缓存棋盘的layer添加到context中
+    //将缓存棋盘的layer添加到context中 todo 实际上是添加到当前节点的第一个绘制边界节点的Layer树中
     context.addLayer(layerHandle.layer!);
-    //再画棋子
-    print("paint pieces");
+    //再画棋子 todo 对象仍然是同一个,保证layerHandle.layer的渲染图层在尺寸没变的情况下还是之前的那个渲染图层(棋盘)
+    print("paint pieces - $hashCode");
     drawPieces(context.canvas, rect);
   }
 
@@ -91,4 +90,3 @@ class RenderChess extends RenderBox {
     super.dispose();
   }
 }
-

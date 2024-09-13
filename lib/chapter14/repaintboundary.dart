@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../common.dart';
 
 class RepaintBoundaryTest extends StatefulWidget {
   const RepaintBoundaryTest({Key? key}) : super(key: key);
@@ -19,9 +18,11 @@ class _RepaintBoundaryTestState extends State<RepaintBoundaryTest> {
             painter: OutlinePainter(),
           ),
         ),
-        ElevatedButton(
-          onPressed: () => setState(() {}),
-          child: const Text("setState"),
+        RepaintBoundary(
+          child: ElevatedButton(
+            onPressed: () => setState(() {}),
+            child: const Text("setState"),
+          ),
         )
       ],
     );
@@ -36,7 +37,7 @@ class OutlinePainter extends CustomPainter {
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke
       ..color = Colors.black;
-    canvas.drawRect(Offset.zero & size, paint);
+    canvas.drawRect(const Offset(10, 0) & size, paint);
   }
 
   // 本例中，rebuild时，painter会重新构建一个新实例，返回false,

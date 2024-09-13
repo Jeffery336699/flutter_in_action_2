@@ -295,8 +295,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("AccurateSizedBox", const AccurateSizedBoxRoute()),
                 Page("StateChangeTest", const StateChangeTest()),
                 Page("RepaintBoundary", const RepaintBoundaryTest()),
-                Page("CompositingBits Test", const CustomRotatedBoxTest()),
                 Page("Paint原理", const PaintTest()),
+                Page("CompositingBits Test", const CustomRotatedBoxTest()),
               ]),
             ),
 
