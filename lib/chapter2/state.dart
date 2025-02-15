@@ -13,16 +13,19 @@ import 'package:flutter/material.dart';
 ///     reassemble
 ///     deactivate
 ///     dispose
+/// 4. 父组件的更新时：
+///   子组件满足runtimeType和key相等时,会调用didUpdateWidget
+///   详情见DidUpdateWidget中有测试方法
 ///
 class StateLifecycleTest extends StatelessWidget {
   const StateLifecycleTest({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // return const CounterWidget();
+    return const CounterWidget();
 
     ///todo 模拟组价被移除,主要看完整的销毁逻辑,这里放开看看就行
-    return const Text("模拟移除...");
+    // return const Text("模拟移除...");
   }
 }
 

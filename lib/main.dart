@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide Page;
 import 'package:flutter_in_action_2/chapter15/fractional_translation_route.dart';
 
 import 'chapter15/overflow_box_route.dart';
+import 'chapterMe/didUpdateWidget.dart';
 import 'common.dart';
 import 'routes.dart';
 
@@ -316,6 +317,8 @@ class _MyHomePageState extends State<MyHomePage> {
               children: _generateItem(context, [
                 Page("FractionalTranslation组件demo", const FTRoute()),
                 Page("OverflowBox组件demo", const OverflowBoxRoute()),
+                Page("didUpdateWidget回调测试", DidUpdateWidget(),
+                    withScaffold: false),
               ]),
             ),
           ],

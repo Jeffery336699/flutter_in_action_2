@@ -32,7 +32,7 @@ class _GetStateObjectRouteState extends State<GetStateObjectRoute> {
             Builder(builder: (context) {
               return ElevatedButton(
                 onPressed: () {
-                  // todo 直接通过of静态方法来获取ScaffoldState
+                  // todo 直接通过of静态方法来获取ScaffoldState，包装上面的方法更简洁
                   ScaffoldState _state = Scaffold.of(context);
                   // 打开抽屉菜单
                   _state.openDrawer();

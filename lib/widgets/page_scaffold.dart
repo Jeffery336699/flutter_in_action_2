@@ -26,12 +26,14 @@ class _PageScaffoldState extends State<PageScaffold> {
 
   @override
   void initState() {
+    // print('initState ${widget.showLog}');
     _showLog = widget.showLog;
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant PageScaffold oldWidget) {
+    // print('didUpdateWidget ${oldWidget.showLog} ${widget.showLog}');
     if (oldWidget.showLog != widget.showLog) {
       _showLog = widget.showLog;
     }
