@@ -28,6 +28,19 @@ class SizeConstraintsRoute extends StatelessWidget {
       appBar: AppBar(
         title: const Text("约束"),
         actions: <Widget>[
+          Container(
+            width: 10,
+            height: 10,
+            child: CircularProgressIndicator(
+              strokeWidth: 3,
+              value: .7,
+              valueColor: AlwaysStoppedAnimation(Colors.green),
+            ),
+            decoration: const BoxDecoration(color: Colors.white),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
           const UnconstrainedBox(
             child: SizedBox(
               width: 10,
@@ -77,6 +90,7 @@ class SizeConstraintsRoute extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             /// tht first优先级:子类的大小,以父类对子类的约束为主
             ConstrainedBox(
@@ -113,9 +127,17 @@ class SizeConstraintsRoute extends StatelessWidget {
             ///不约束子组件的大小,组件多大就多大
             UnconstrainedBox(
               alignment: Alignment.topLeft,
+              clipBehavior: Clip.hardEdge,
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Row(children: [Text('xx' * 30)]),
+                child: Wrap(
+                  children: [
+                    Text(
+                      'xx' * 30,
+                      maxLines: 3,
+                    )
+                  ],
+                ),
               ),
             ),
 

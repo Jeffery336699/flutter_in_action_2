@@ -13,7 +13,7 @@ class ResponsiveColumn extends StatelessWidget {
     ///通过LayoutBuilder拿到父组件对子组件的约束信息,然后根据约束信息构建不同的布局(一种响应式的思维)
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        print('LayoutBuilder---> ${constraints.maxWidth}');
+        print('[$hashCode] LayoutBuilder---> ${constraints.maxWidth}');
         if (constraints.maxWidth < 200) {
           return Column(children: children, mainAxisSize: MainAxisSize.min);
         } else {
@@ -23,7 +23,7 @@ class ResponsiveColumn extends StatelessWidget {
               _children.add(Row(
                 children: [children[i], children[i + 1]],
                 mainAxisSize: MainAxisSize.min,
-              ));
+              ).withBorder());
             } else {
               _children.add(children[i]);
             }
@@ -46,11 +46,12 @@ class LayoutBuilderRoute extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(width: 190, child: ResponsiveColumn(children: _children)),
+        SizedBox(width: 190, child: ResponsiveColumn(children: _children))
+            .withBorder(color: Colors.red),
         ResponsiveColumn(children: _children),
         const LayoutLogPrint(child: Text("flutter@wendux")),
         //CustomSingleChildLayout
       ],
-    ).withBorder();
+    );
   }
 }

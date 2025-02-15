@@ -35,6 +35,7 @@ class _AfterLayoutRouteState extends State<AfterLayoutRoute> {
             },
           ),
         ),
+        // Optimize: 老师封装的轻松获取child的大小和位置的组件
         AfterLayout(
           callback: (RenderAfterLayout ral) {
             print('Text2： ${ral.size}, ${ral.offset}');
@@ -51,6 +52,8 @@ class _AfterLayoutRouteState extends State<AfterLayoutRoute> {
               callback: (RenderAfterLayout ral) {
                 Offset offset = ral.localToGlobal(
                   Offset.zero,
+
+                  /// context是获取到的Container的context,以他所对应的RenderObject为参考系(锚点)
                   ancestor: context.findRenderObject(),
                 );
                 print('A 在 Container 中占用的空间范围为：${offset & ral.size}');

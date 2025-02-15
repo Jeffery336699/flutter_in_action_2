@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class StackRoute extends StatelessWidget {
   const StackRoute({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class StackRoute extends StatelessWidget {
             child: Text("Your friend"),
           )
         ],
-      ),
+      ).withBorder(),
     );
   }
 }

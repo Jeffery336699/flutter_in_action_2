@@ -8,7 +8,7 @@ class TableRoute extends StatelessWidget {
     return Column(
       children: <Widget>[
         Table(
-          border: TableBorder.all(color: Colors.grey[400]!),
+          border: TableBorder.all(color: Colors.blue[400]!),
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           children: [
             TableRow(

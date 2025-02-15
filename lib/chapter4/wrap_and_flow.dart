@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class WrapAndFlowRoute extends StatelessWidget {
   const WrapAndFlowRoute({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class WrapAndFlowRoute extends StatelessWidget {
           color: Colors.purple,
         ),
       ],
-    );
+    ).withBorder();
   }
 }
 
@@ -87,6 +88,7 @@ class TestFlowDelegate extends FlowDelegate {
 
   @override
   void paintChildren(FlowPaintingContext context) {
+    // Optimize: 自定义网格布局的既视感
     var x = margin.left;
     var y = margin.top;
     //计算每一个子widget的位置
