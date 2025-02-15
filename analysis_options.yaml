@@ -23,6 +23,7 @@ linter:
   # producing the lint.
   rules:
     avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    prefer_const_constructors: false # 禁用widget组件const常量优化提示
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
 # Additional information about this file can be found at

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class TextRoute extends StatefulWidget {
   const TextRoute({Key? key}) : super(key: key);
@@ -13,7 +14,10 @@ class _TextRouteState extends State<TextRoute> {
 
   @override
   void initState() {
-    _tapRecognizer = TapGestureRecognizer();
+    _tapRecognizer = TapGestureRecognizer()
+      ..onTap = () {
+        print("Link clicked");
+      };
     super.initState();
   }
 
@@ -27,10 +31,16 @@ class _TextRouteState extends State<TextRoute> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            "Hello world",
-            textAlign: TextAlign.center,
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child: const Text(
+                "Hello world",
+                textAlign: TextAlign.start,
+              ).withBorder())
+            ],
           ),
           Text(
             "Hello world! I'm Jack. " * 4,
@@ -65,22 +75,27 @@ class _TextRouteState extends State<TextRoute> {
                   recognizer: _tapRecognizer),
             ]),
           ),
-          const DefaultTextStyle(
+
+          /// 这里DefaultTextStyle中的textAlign没起到作用还是居中显示,
+          /// 原因是Column的crossAxisAlignment属性默认是居中的,所以这里的textAlign属性不生效
+          /// 要想改变可以像第一个组件Row+Expanded的方式,可用空间撑满再在可用空间中进行子组件的摆放
+          DefaultTextStyle(
             /// 1.设置文本默认样式
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.red,
               fontSize: 20.0,
             ),
-            textAlign: TextAlign.start,
+            textAlign: TextAlign.left,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("hello world"),
+                Text("hello world").withBorder(),
                 Text("I am Jack"),
                 Text(
                   "I am Jack",
                   style: TextStyle(
-                    /// 2.不继承默认样式;继承的话,只对自身修改的进行变化,其他还是默认(同android设置主题类似)
+                    /// ①inherit: true继承的话,只对自身修改的进行变化,其他还是默认(同android设置主题类似)
+                    /// ②inherit: false不继承的话,完全与DefaultTextStyle默认样式无关
                     inherit: false,
                     color: Colors.grey,
                   ),
@@ -88,8 +103,14 @@ class _TextRouteState extends State<TextRoute> {
               ],
             ),
           ),
+          Text(
+            "I am Jack",
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          ),
         ],
-      ),
+      ).withBorder(color: Colors.yellow),
     );
   }
 }

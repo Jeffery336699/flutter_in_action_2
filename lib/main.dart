@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("单选开关和复选框", const SwitchAndCheckBoxRoute()),
                 Page("输入框", const FocusTestRoute(), showLog: false),
                 Page("Form", const FormTestRoute(), showLog: false),
-                Page("进度条", const ProgressRoute()),
+                Page("进度条", const ProgressRoute(), showLog: false),
               ]),
             ),
             ExpansionTile(

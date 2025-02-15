@@ -27,7 +27,7 @@ class _FormTestRouteState extends State<FormTestRoute> {
               hintText: "用户名或邮箱",
               icon: Icon(Icons.person),
             ),
-            // 校验用户名,返回null表示验证ok
+            // Optimize: 校验用户名,返回null表示验证ok
             validator: (v) {
               return v!.trim().isNotEmpty ? null : "用户名不能为空";
             },

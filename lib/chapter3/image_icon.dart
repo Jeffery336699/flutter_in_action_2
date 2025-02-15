@@ -100,6 +100,7 @@ class IconFontsRoute extends StatelessWidget {
     return Column(
       children: [
         const Icon(
+          /// 对应IconData(0xe237, fontFamily: 'MaterialIcons');
           Icons.error,
           color: Colors.red,
         ),
@@ -131,8 +132,8 @@ class IconFontsRoute extends StatelessWidget {
       icons,
       style: const TextStyle(
         fontFamily: "MaterialIcons",
-        fontSize: 24.0,
-        color: Colors.green,
+        fontSize: 34.0,
+        color: Colors.blue,
       ),
     );
   }
