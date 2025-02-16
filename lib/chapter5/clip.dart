@@ -40,8 +40,8 @@ class ClipRoute extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            ///同上对比,将溢出部分剪裁
             ClipRect(
-              ///同上对比,将溢出部分剪裁
               child: Align(
                 alignment: Alignment.topLeft,
                 widthFactor: .5, //宽度设为原来宽度一半
@@ -64,7 +64,12 @@ class ClipRoute extends StatelessWidget {
             child: avatar,
           ),
         )
-      ],
+      ]
+          .map((e) => Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: e,
+              ))
+          .toList(),
     );
   }
 }
@@ -72,7 +77,7 @@ class ClipRoute extends StatelessWidget {
 ///演示自定义裁剪,确定对目标的裁剪区域
 class MyClipper extends CustomClipper<Rect> {
   @override
-  Rect getClip(Size size) => const Rect.fromLTWH(10.0, 10.0, 40.0, 30.0);
+  Rect getClip(Size size) => const Rect.fromLTWH(0.0, 0.0, 40.0, 30.0);
 
   @override
   bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
@@ -88,9 +93,7 @@ class MyClipRect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var rect = const Rect.fromLTWH(10.0, 10.0, 40.0, 30.0);
-
-    ///todo 这里我的理解是子组件先把他设置为不穷大,然后填充到SizedBox中,最后把多余部分裁剪掉?? 还是有些不懂
+    var rect = const Rect.fromLTWH(0.0, 0.0, 40.0, 30.0);
     return ClipRect(
       child: SizedBox(
         width: rect.width,
@@ -98,6 +101,7 @@ class MyClipRect extends StatelessWidget {
         child: OverflowBox(
           maxWidth: double.infinity,
           maxHeight: double.infinity,
+          alignment: Alignment.topLeft, //如果是居中对齐,最后裁剪的应该就是中间那块
           child: child,
         ),
       ),

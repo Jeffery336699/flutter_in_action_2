@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 import '../widgets/layoutlog.dart';
 
@@ -10,23 +11,19 @@ class FittedBoxRoute extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
-          child: Row(children: [Text('xx' * 30)]),
-        ),
-        wContainer(BoxFit.none, clip: false),
+        wContainer(BoxFit.none, clip: false, opacity: 0.35),
         const Text('Wendux-(不裁剪)'),
         wContainer(BoxFit.none),
-        const Text('Wendux-(裁剪)'),
+        const Text('Wendux-(裁剪)且不缩放'),
         wContainer(BoxFit.contain),
-        const Text('Flutter中国'),
+        const Text('Wendux-(裁剪)且等比缩放至包含在父容器中'),
         ...wRows(),
       ],
     );
   }
 
   ///裁剪的真正含义就是对(子组件)绘制阶段超出父容器范围的区域的处理方式,就像裁剪布料一样去掉不要咯
-  Widget wContainer(BoxFit boxFit, {bool clip = true}) {
+  Widget wContainer(BoxFit boxFit, {bool clip = true, double opacity = 1}) {
     var widget = Container(
       width: 50,
       height: 50,
@@ -34,7 +31,7 @@ class FittedBoxRoute extends StatelessWidget {
       child: FittedBox(
         fit: boxFit,
         child: Container(width: 60, height: 70, color: Colors.blue),
-      ),
+      ).opacity(opacity),
     );
     return clip
         ? ClipRect(
@@ -100,6 +97,7 @@ class FittedBoxRoute extends StatelessWidget {
   }
 }
 
+/// 针对长于目标的(eg 屏幕)的就是收缩,对于短于目标的(eg 屏幕)的就是放大填充
 class SingleLineFittedBox extends StatelessWidget {
   const SingleLineFittedBox({Key? key, this.child}) : super(key: key);
   final Widget? child;

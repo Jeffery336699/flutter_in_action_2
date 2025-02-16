@@ -70,11 +70,13 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
       //   fixedColor: Colors.blue,
       //   onTap: _onItemTapped,
       // ),
-      floatingActionButton: FloatingActionButton(
-          child: ClipOval(
-            child: Image.asset('imgs/avatar.png'), // 请替换为您的图片
-          ),
-          onPressed: _onAdd),
+      floatingActionButton: ClipOval(
+        child: Image.asset(
+          'imgs/avatar.png',
+          width: 60,
+          height: 60,
+        ), // 请替换为您的图片
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

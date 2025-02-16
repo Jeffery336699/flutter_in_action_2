@@ -7,9 +7,12 @@ class ContainerRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 50.0, left: 120.0),
-      constraints: const BoxConstraints.tightFor(width: 200.0, height: 150.0),      //卡片大小
-      decoration: const BoxDecoration(  //背景装饰
-        gradient: RadialGradient(     //背景径向渐变
+      constraints:
+          const BoxConstraints.tightFor(width: 200.0, height: 150.0), //卡片大小
+      decoration: const BoxDecoration(
+        //背景装饰
+        gradient: RadialGradient(
+          //背景径向渐变
           colors: [Colors.red, Colors.orange],
           center: Alignment.topLeft,
           radius: .98,
@@ -23,8 +26,8 @@ class ContainerRoute extends StatelessWidget {
           )
         ],
       ),
-      transform: Matrix4.rotationZ(.2),//卡片倾斜变换
-      alignment: Alignment.center,      //卡片内文字居中
+      transform: Matrix4.rotationZ(.2), //卡片倾斜变换
+      alignment: Alignment.center, //卡片内文字居中
       child: const Text(
         //卡片文字
         "5.20", style: TextStyle(color: Colors.white, fontSize: 40.0),

@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("变换", const TransformRoute()),
                 Page("Container", const ContainerRoute()),
                 Page("FittedBox", const FittedBoxRoute()),
-                Page("剪裁", const ClipRoute()),
+                Page("剪裁", const ClipRoute(), showLog: false),
                 Page("Scaffold、TabBar、底部导航", const ScaffoldRoute(),
                     withScaffold: false, showLog: false),
               ]),

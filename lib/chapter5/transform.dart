@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class TransformRoute extends StatelessWidget {
   const TransformRoute({Key? key}) : super(key: key);
@@ -19,7 +20,9 @@ class TransformRoute extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             color: Colors.deepOrange,
             child: const Text('Apartment for rent!'),
-          ),
+          ).onTap(() {
+            print("点击了Transform");
+          }),
         ),
       ),
       DecoratedBox(
