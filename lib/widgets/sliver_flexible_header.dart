@@ -117,7 +117,7 @@ class _FlexibleHeaderRenderSliver extends RenderSliverSingleBoxAdapter {
             _direction, //传递滑动方向
             constraints.asBoxConstraints(maxExtent: 0),
           ),
-          //我们不会使用自节点的 Size, 关于此参数更详细的内容见本书后面关于layout原理的介绍
+          //我们不会使用子节点的 Size, 关于此参数更详细的内容见本书后面关于layout原理的介绍
           parentUsesSize: false,
         );
       }

@@ -42,7 +42,8 @@ class _ScrollNotificationTestRouteState
             CircleAvatar(
               //显示进度百分比
               radius: 30.0,
-              child: Text(_progress),
+              child:
+                  Text(_progress, style: const TextStyle(color: Colors.white)),
               backgroundColor: Colors.blue,
             )
           ],

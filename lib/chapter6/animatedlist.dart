@@ -9,6 +9,8 @@ class AnimatedListRoute extends StatefulWidget {
 
 class _AnimatedListRouteState extends State<AnimatedListRoute> {
   var data = <String>[];
+
+  /// 表示当前已经计数到哪里了
   int counter = 5;
 
   final globalKey = GlobalKey<AnimatedListState>();
@@ -84,7 +86,6 @@ class _AnimatedListRouteState extends State<AnimatedListRoute> {
           // 删除过程执行的是反向动画，animation.value 会从1变为0
           var item = buildItem(context, index);
           print('删除 ${data[index]}');
-          counter--;
 
           ///①数据层移出数据
           data.removeAt(index);

@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Page("SliverPersistentHeaderToBox",
                     const SliverPersistentHeaderToBoxRoute(),
-                    padding: false),
+                    padding: false, showLog: false),
                 Page("SliverFlexibleHeader", const SliverFlexibleHeaderRoute(),
                     padding: false),
                 Page("NestedScrollView", const NestedScrollViewRoute(),

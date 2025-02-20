@@ -25,6 +25,7 @@ class NestedListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // NestedScrollView设计时就分为header和body两部分
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           // 返回一个 Sliver 数组
@@ -106,6 +107,11 @@ class _SnapAppBar2State extends State<SnapAppBar2> {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          /**
+           * NestedScrollView.sliverOverlapAbsorberHandleFor 是 NestedScrollView 的一个辅助工具方法，
+           * 用于解决复杂的嵌套滚动场景下的偏移量协调问题。它主要与 SliverOverlapAbsorber 和 SliverOverlapInjector 配合使用，
+           * 解决滑动冲突以及内容遮挡问题，在动态头部、吸顶效果以及嵌套滑动优化等场景中非常实用。
+           */
           handle = NestedScrollView.sliverOverlapAbsorberHandleFor(context);
           handle.removeListener(onOverlapChanged);
           handle.addListener(onOverlapChanged);
@@ -161,31 +167,32 @@ class NestedTabBarView1 extends StatelessWidget {
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
-              // SliverOverlapAbsorber(
-              //   handle:
-              //       NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              //   sliver: SliverAppBar(
-              //     title: const Text('商城'),
-              //     // floating: true,
-              //     // snap: true,
-              //     pinned: true,
-              //     forceElevated: true,
-              //     bottom: TabBar(
-              //       tabs: _tabs.map((String name) => Tab(text: name)).toList(),
-              //     ),
-              //   ),
-              // ),
-
-              SliverAppBar(
-                title: const Text('商城'),
-                // floating: true,
-                // snap: true,
-                pinned: true,
-                forceElevated: true,
-                bottom: TabBar(
-                  tabs: _tabs.map((String name) => Tab(text: name)).toList(),
+              //SliverOverlapAbsorber和SliverOverlapInjector再加上floating: true,snap: true完美实现嵌套滚动不遮挡的效果
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverAppBar(
+                  title: const Text('商城'),
+                  floating: true,
+                  snap: true,
+                  // pinned: true,
+                  forceElevated: true,
+                  bottom: TabBar(
+                    tabs: _tabs.map((String name) => Tab(text: name)).toList(),
+                  ),
                 ),
               ),
+
+              // SliverAppBar(
+              //   title: const Text('商城'),
+              //   // floating: true,
+              //   // snap: true,
+              //   pinned: true,
+              //   forceElevated: true,
+              //   bottom: TabBar(
+              //     tabs: _tabs.map((String name) => Tab(text: name)).toList(),
+              //   ),
+              // ),
             ];
           },
           body: TabBarView(
@@ -195,10 +202,10 @@ class NestedTabBarView1 extends StatelessWidget {
                   return CustomScrollView(
                     key: PageStorageKey<String>(name),
                     slivers: <Widget>[
-                      // SliverOverlapInjector(
-                      //   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                      //       context),
-                      // ),
+                      SliverOverlapInjector(
+                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                            context),
+                      ),
                       SliverPadding(
                         padding: const EdgeInsets.all(8.0),
                         sliver: buildSliverList(50),
@@ -293,7 +300,7 @@ class NestedTabBarView2 extends StatelessWidget {
       indicatorSize: TabBarIndicatorSize.label,
       indicator: const UnderlineTabIndicator(
         borderSide: BorderSide(width: 2.0, color: Colors.blue),
-        insets: EdgeInsets.only(bottom: 10),
+        insets: EdgeInsets.only(bottom: 0),
       ),
       tabs: tabs.map((String name) => Tab(text: name)).toList(),
     );

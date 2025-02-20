@@ -22,6 +22,8 @@ class _PageViewTestState extends State<PageViewTest> {
 
   ///是否以页为单位进行滑动
   bool pageSnapping = true;
+
+  ///这玩意仅仅保存滚动位置,但是不保存页面的状态(有种新建恢复页面时,沿用之前的滚动位置)
   bool withPageStorageKey = false;
 
   ///wendux老师自己封装的强无敌的页面缓存,对页面缓存数量没有限制,你需要缓存就借助KeepAliveWrapper这个组件包裹一层

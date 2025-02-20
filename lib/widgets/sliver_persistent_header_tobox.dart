@@ -16,7 +16,7 @@ class SliverPersistentHeaderToBox extends StatelessWidget {
   })  : builder = ((a, b, c) => child),
         super(key: key);
 
-  SliverPersistentHeaderToBox.builder({
+  const SliverPersistentHeaderToBox.builder({
     Key? key,
     required this.builder,
   }) : super(key: key);
@@ -30,7 +30,7 @@ class SliverPersistentHeaderToBox extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           return builder(
             context,
-            constraints.maxHeight,
+            constraints.maxHeight, //父类能给到该组件的最大高度,从LayoutBuilder就能看出父类对子类的约束
             (constraints as ExtraInfoBoxConstraints<bool>).extra,
           );
         },

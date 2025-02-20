@@ -61,7 +61,7 @@ class _TabViewRoute1State extends State<TabViewRoute1>
               ),
               tag: e,
             ),
-            keepAlive: false,
+            keepAlive: true,
           );
         }).toList(),
       ),

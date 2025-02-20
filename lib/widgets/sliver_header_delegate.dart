@@ -37,6 +37,11 @@ class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
+    /**
+     * 当shrinkOffset为0时，头部组件处于完全展开状态；shrink:收缩的意思
+     * 当shrinkOffset达到maxExtent - minExtent时[能收缩的最大值]，头部组件处于完全收缩状态。
+     * shrinkOffset通常用于在头部滚动时动态调整子组件的大小、透明度、位置等样式。
+     */
     Widget child = builder(context, shrinkOffset, overlapsContent);
     //测试代码：如果在调试模式，且子组件设置了key，则打印日志
     assert(() {

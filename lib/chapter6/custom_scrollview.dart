@@ -107,6 +107,7 @@ class CustomScrollViewTestRoute extends StatelessWidget {
   Widget buildWithPageView() {
     return CustomScrollView(
       slivers: [
+        /// 把盒子模型的组件转为sliver模型的,以方便在slivers中使用
         SliverToBoxAdapter(
           child: SizedBox(
             height: 300,

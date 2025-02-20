@@ -19,7 +19,7 @@ class _ScrollViewConfigurationState extends State<ScrollViewConfiguration> {
       reverse: reverse,
       scrollDirection: vertical ? Axis.vertical : Axis.horizontal,
       // controller:  ,
-      //physics:  ObserveOverscrollPhysics((e)=>print(e)),
+      // physics: ObserveOverscrollPhysics((e) => print(e)),
       physics: const ClampingScrollPhysics(),
       itemBuilder: (context, index) {
         return Padding(

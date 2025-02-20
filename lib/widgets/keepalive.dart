@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+///保活组件的封装,内部还是借助AutomaticKeepAliveClientMixin
 class KeepAliveWrapper extends StatefulWidget {
   const KeepAliveWrapper({
     Key? key,

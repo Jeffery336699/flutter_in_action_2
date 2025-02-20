@@ -17,7 +17,7 @@ class LayoutLogPrint<T> extends StatelessWidget {
     return LayoutBuilder(builder: (_, constraints) {
       assert(() {
         double screenWidth = MediaQuery.of(context).size.width;
-        debugPrint('screenWidth: $screenWidth');
+        // debugPrint('screenWidth: $screenWidth'); // 夜深模拟器450
         debugPrint('${tag ?? key ?? child.runtimeType}: $constraints');
         return true;
       }());

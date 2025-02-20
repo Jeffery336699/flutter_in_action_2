@@ -14,6 +14,11 @@ class PersistentHeaderRoute extends StatelessWidget {
   }
 
   Widget wSample1() {
+    ///1. 系统的SliverPersistentHeader时,第一个SliverPersistentHeaderDelegate的overlapsContent有问题,永远都是false(就算有重叠)
+    ///   但是之后的没问题(eg,从第二个开始)
+    ///2. 无论maxExtent和minExtent相等or不相等时,当滚动触发到组件SliverPersistentHeader收缩时,shrinkOffset的值都是从0到达maxExtent,
+    ///   头部组件的也会在maxExtent与minExtent不同时发生UI变化
+    ///3. 详情可以看这个示例的日志输出
     return CustomScrollView(
       slivers: [
         buildSliverList(),
@@ -52,7 +57,7 @@ class PersistentHeaderRoute extends StatelessWidget {
             slivers: [
               ///floating:true就是随便滑动出去多远,一往下滑动就能出来
               SliverPersistentHeader(
-                floating: true,
+                floating: false, // 是否往下立马出来. true:无论滚动多远立马出来;false:滚动到顶部才出来
                 delegate: SliverHeaderDelegate.fixedHeight(
                   height: 50,
                   child: const TextField(),

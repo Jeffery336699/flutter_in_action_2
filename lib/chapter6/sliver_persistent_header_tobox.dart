@@ -11,6 +11,8 @@ class SliverPersistentHeaderToBoxRoute extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         buildSliverList(5),
+
+        ///SliverPersistentHeaderToBox内部使用了RenderSliverSingleBoxAdapter包装作为RenderObject,所以这里slivers的类型不用担心
         SliverPersistentHeaderToBox.builder(builder: headerBuilder),
         buildSliverList(5),
         SliverPersistentHeaderToBox(child: wTitle('Title 2')),
@@ -19,7 +21,7 @@ class SliverPersistentHeaderToBoxRoute extends StatelessWidget {
     );
   }
 
-  // 当 header 固定后显示阴影
+  /// 当 header 固定后显示阴影,提供头部固定的回调给你具体做事情
   Widget headerBuilder(context, maxExtent, fixed) {
     // 获取当前应用主题，关于主题相关内容将在后面章节介绍，现在
     // 我们要从主题中获取一些颜色
@@ -27,7 +29,7 @@ class SliverPersistentHeaderToBoxRoute extends StatelessWidget {
     return Material(
       child: Container(
         color: fixed ? Colors.blue : theme.canvasColor,
-        child: wTitle('Title 1'),
+        child: wTitle('Title 1 (maxExtent=$maxExtent)'),
       ),
       elevation: fixed ? 4 : 0,
       shadowColor: theme.appBarTheme.shadowColor,
