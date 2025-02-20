@@ -16,11 +16,12 @@ class _ProviderRouteState extends State<ProviderRoute> {
   @override
   void didUpdateWidget(ProviderRoute oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print("xxx");
+    print("ProviderRoute didUpdateWidget");
   }
 
   @override
   Widget build(BuildContext context) {
+    print('ProviderRoute build');
     return Center(
       child: ChangeNotifierProvider<CartModel>(
         data: CartModel(),

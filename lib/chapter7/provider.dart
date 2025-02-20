@@ -93,9 +93,11 @@ class Consumer<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return builder(
+    var widget = builder(
       context,
       ChangeNotifierProvider.of<T>(context),
     );
+    print('widget: ${widget.hashCode}');
+    return widget;
   }
 }
