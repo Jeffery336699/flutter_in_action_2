@@ -22,7 +22,7 @@ class _AnimatedSwitcherCounterRouteState
             duration: const Duration(milliseconds: 400),
             transitionBuilder: (Widget child, Animation<double> animation) {
               /**
-               *  todo 这样不精准,因为动画是一个持续的过程
+               *  todo 两个动画同时进行，一个正向一个反向（AnimatedSwitcher适用于针对同一个组件进行切换的变化）
                *  flutter                  I  animation.value:1.0
                   flutter                  I  animation.value:0.0
                */

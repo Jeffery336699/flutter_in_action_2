@@ -102,6 +102,8 @@ class MySlideTransition extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Optimize: 此组件位于AnimatedSwitcher中，其带过来的animation中正向反向值都有，应该根据动画的status区分开正反向
+    // Optimize: 同样的正反也是对应的两个child,分别是新child和旧child
     final position = listenable as Animation<Offset>;
     Offset offset = position.value;
     /**
@@ -129,6 +131,10 @@ class MySlideTransition extends AnimatedWidget {
     if (position.status == AnimationStatus.reverse) {
       offset = Offset(-offset.dx, offset.dy);
     }
+    
+    /// FractionalTranslation组件是一种用于对子组件进行 平移 (Translation) 的小部件，它以 相对于子组件自身的尺寸的比例 来定义平移的量。
+    /// transformHitTests默认为 true,表示是否将平移后的位置用于命中测试（hit testing）
+    /// 它直接作用于图层 (Layer)，因此不影响布局，外层一般时结合ClipRect使用
     return FractionalTranslation(
       translation: offset,
       transformHitTests: transformHitTests,

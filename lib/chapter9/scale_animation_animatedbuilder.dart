@@ -25,10 +25,11 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute2>
 
   @override
   Widget build(BuildContext context) {
-    ///AnimatedBuilder可以将渲染逻辑分离出来,并且提供更好的性能:动画每一帧需要构建的Widget的范围缩小了
+    ///AnimatedBuilder可以将渲染逻辑分离出来（不用显示的去setState驱动页面的不断刷新了）
+    ///并且提供更好的性能:动画每一帧需要构建的Widget的范围缩小了
     return AnimatedBuilder(
       animation: animation,
-      child: Image.asset("imgs/avatar.png"),
+      child: Image.asset("imgs/avatar.png"), //在widget不变的情况下，提供复用组件的方式（优化）
       builder: (BuildContext ctx, child) {
         return Center(
           child: SizedBox(

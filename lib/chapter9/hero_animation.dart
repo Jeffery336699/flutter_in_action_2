@@ -165,6 +165,7 @@ class _CustomHeroAnimationState extends State<CustomHeroAnimation>
         width: constraints.maxWidth,
         height: constraints.maxHeight,
         child: Stack(
+          key: targetKey,
           alignment: AlignmentDirectional.topCenter,
           children: [
             ///初始化状态显示个静态的小图
@@ -180,7 +181,7 @@ class _CustomHeroAnimationState extends State<CustomHeroAnimation>
               AnimatedBuilder(
                 animation: _animation,
                 builder: (context, child) {
-                  //求出 rect 插值
+                  // Optimize: 求出 rect 插值,从而在不断build中不断更新大小和位置
                   final rect = Rect.lerp(
                     child1Rect,
                     child2Rect,
@@ -238,13 +239,15 @@ class _CustomHeroAnimationState extends State<CustomHeroAnimation>
       child: Image.asset("imgs/avatar.png", width: 400),
     );
   }
+  // 在树中明确知道目标组件并提前标记的场景下，可以使用 GlobalKey 来获取获取对应的RenderObject
+  final GlobalKey targetKey = GlobalKey();
 
   Rect _getRect(RenderAfterLayout renderAfterLayout) {
     //我们需要获取的是AfterLayout子组件相对于Stack的Rect
     return renderAfterLayout.localToGlobal(
           Offset.zero,
           //找到Stack对应的 RenderObject 对象
-          ancestor: context.findRenderObject(),
+          ancestor: /*context.findRenderObject()*/ targetKey.currentContext!.findRenderObject(),
         ) &
         renderAfterLayout.size;
   }

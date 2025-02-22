@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 class AnimatedWidgetsTest extends StatefulWidget {
   const AnimatedWidgetsTest({Key? key}) : super(key: key);
@@ -53,10 +54,10 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
                 )
               ],
             ),
-          ),
+          ).withBorder(),
           Container(
             height: 100,
-            color: Colors.grey,
+            color: Colors.grey[200],
             child: AnimatedAlign(
               duration: duration,
               alignment: _align,
@@ -134,7 +135,7 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
                   });
                 },
                 child: const Text(
-                  "AnimatedDecoratedBox1 toggle",
+                  "AnimatedDecoratedBox[自定义] toggle",
                   style: TextStyle(color: Colors.white),
                 ),
               );
@@ -153,7 +154,7 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
                   });
                 },
                 child: const Text(
-                  "AnimatedDecoratedBox toggle",
+                  "AnimatedDecoratedBox[官方提供] toggle",
                   style: TextStyle(color: Colors.white),
                 )),
           ),
@@ -217,6 +218,7 @@ class _AnimatedDecoratedBox1State extends State<AnimatedDecoratedBox1>
 
   @override
   Widget build(BuildContext context) {
+    print('----->build（内部）');
     return AnimatedBuilder(
       animation: _animation,
       builder: (context, child) {
@@ -229,10 +231,15 @@ class _AnimatedDecoratedBox1State extends State<AnimatedDecoratedBox1>
     );
   }
 
-  //这个方法在热重载(闪电)就会被回调,需要注意的是如果依赖外部的状态需要走这个方法持续更新
+  // 这个方法在热重载(闪电)就会被回调,需要注意的是如果依赖外部的状态需要走这个方法持续更新
+  // 在子组件的runtimeType与key都没有改变的时候，父组件build时要求子组件也相应的更新，会走到这里
+  // Optimize: 我们一般根据内容的变化而做出相应的决策，这里逻辑是动画值有所改变时重新启动动画;随后调用build方法，有点补偿initState方法的意味
+  // ----->didUpdateWidget
+  // ----->build（内部）
   @override
   void didUpdateWidget(AnimatedDecoratedBox1 oldWidget) {
     super.didUpdateWidget(oldWidget);
+    print('----->didUpdateWidget');
     if (widget.curve != oldWidget.curve) _updateCurve();
     _controller.duration = widget.duration;
     _controller.reverseDuration = widget.reverseDuration;

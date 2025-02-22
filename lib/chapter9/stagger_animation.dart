@@ -29,6 +29,7 @@ class _StaggerRouteState extends State<StaggerRoute>
 
   _playAnimation() async {
     try {
+      // Optimize: orCancel 属性用于处理动画可能被取消的情况。如果动画被取消，orCancel 属性确保 await 语句不会抛出异常，从而使代码能够优雅地处理取消情况。
       //先正向执行动画
       await _controller.forward().orCancel;
       //再反向执行动画

@@ -28,12 +28,13 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute>
     //     setState(() => {});
     //   });
 
-    ///使用弹性曲线
+    ///包装一层，使用弹性曲线
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceIn);
 
-    ///图片宽高从0变到300,animate(animation)中animation在这个范围[0,300]活动,值会被更新到animation.value中
+    ///包装一层，图片边界值范围为0变到300,animate(animation)中animation在这个范围[0,300]活动,值会被更新到animation.value中
     animation = Tween(begin: 0.0, end: 300.0).animate(animation)
       ..addListener(() {
+        // Optimize: 这里是最关键的部分，不断刷新界面从而形成流程的动画效果
         setState(() {});
       });
 
