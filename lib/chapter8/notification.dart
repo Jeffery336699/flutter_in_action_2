@@ -40,7 +40,7 @@ class NotificationRouteState extends State<NotificationRoute> {
 //           child: Text("Send Notification"),
 //          ),
               Builder(
-                ///借助Builder缩小context的范围
+                ///借助Builder缩小context的范围，通知只能从底部往上冒泡
                 builder: (context) {
                   return ElevatedButton(
                     ///按钮点击时分发通知

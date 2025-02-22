@@ -26,8 +26,10 @@ class EventConflictTest extends StatelessWidget {
     //     ),
     //   ),
     // );
+
     ///解决手势冲突方式一:通过Listener解决手势冲突 ----  2,1都会输出
     ///因为竞争只是针对手势的,而Listener用于监听的是原始事件,并非语义上的手势,根本不会遵守手势竞争的逻辑
+    ///Listener的应用范围是层与层之间的事件传递
     // return Listener(
     //   onPointerUp: (x) => print("2"),
     //   child: Container(
@@ -45,8 +47,10 @@ class EventConflictTest extends StatelessWidget {
     //     ),
     //   ),
     // );
+
     ///解决方法二:自定义Recognizer解决手势冲突-----1,2都会打印
     ///自定义GestureRecognizer,在其rejectGesture方法中强制调用acceptGesture方法(我太想成功了~)
+    ///rejectGesture方法是在它所声明注册的手势识别器在事件消费竞争中失败时（被其他竞争者消费了）的回调
     return customGestureDetector(
       onTap: () => print("2"),
       child: Container(

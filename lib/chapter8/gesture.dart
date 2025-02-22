@@ -154,6 +154,10 @@ class _ScaleState extends State<_Scale> {
             _width = 200 * details.scale.clamp(.8, 10.0);
           });
         },
+
+        onTap: () => setState(() {
+          _width = _width * 1.2;
+        }),
       ),
     );
   }
@@ -227,7 +231,7 @@ class _BothDirectionTestState extends State<_BothDirectionTest> {
           left: _left,
 
           ///onVerticalDragUpdate与onHorizontalDragUpdate在一次完整事件过程中,
-          ///由最开始按下时谁竞争所得(后续事件只会给到该方向)
+          ///由最开始按下时谁竞争所得(后续事件只会给到该方向),直到松开or cancel这个序列事件才算结束
           child: GestureDetector(
             child: const CircleAvatar(child: Text("A")),
             //垂直方向拖动事件

@@ -1,6 +1,5 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-
 class PointerDownListenerRoute extends StatelessWidget {
   const PointerDownListenerRoute({Key? key}) : super(key: key);
 
@@ -13,7 +12,7 @@ class PointerDownListenerRoute extends StatelessWidget {
   }
 }
 
-///有点类似Listener的原理,简陋很多
+///有点类似Listener的原理,简陋很多（只要手指按下就触发回调，很raw生）
 class PointerDownListener extends SingleChildRenderObjectWidget {
   const PointerDownListener({Key? key, this.onPointerDown, Widget? child})
       : super(key: key, child: child);
