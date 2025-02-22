@@ -16,6 +16,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
 
   @override
   Widget build(BuildContext context) {
+    print('DialogTestRoute build');
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -122,6 +123,15 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
               _showDatePicker2();
             },
           ),
+          // Optimize: 通过StatefulBuilder确实可以把封信范围控制在一个小范围内
+          StatefulBuilder(builder: (context, setState) => ElevatedButton(
+            child: const Text("验证Builder的作用"),
+            onPressed: ()  {
+              setState(() {
+                print('setState');
+              });
+            },
+          ),),
         ],
       ),
     );
@@ -217,8 +227,9 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
   }
 
   Future<bool?> showDeleteConfirmDialog2() {
+    // Optimize: 勾选状态的数据没法应用到对话框中，因为对话框是一个新的Route页面
+    // withTree = false;
     print('showDeleteConfirmDialog2');
-    withTree = false;
     return showDialog<bool>(
       context: context,
       builder: (context) {
@@ -282,7 +293,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
                   DialogCheckbox(
                     value: _withTree, //默认不选中
                     onChanged: (bool? value) {
-                      ///更新选中状态 todo 这里主要是改变给到外部的值(eg pop),checkbox内部的更新UI其实都做了
+                      ///给到外部更新选中状态，就算把下面这行注释掉,checkbox的更新UI也能照样正常（因为并非_withTree它来起作用的）
                       _withTree = !_withTree;
                     },
                   ),
@@ -326,8 +337,10 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
                   const Text("同时删除子目录？"),
 
                   ///对话框3中拆分出一个有状态组件的形式(缩小context范围),已经有官方组件支持了StatefulBuilder
+                  ///StatefulBuilder它可以使你在构建UI的时候更新自身状态，外部的父组件并没有重新构建（请看日志）
                   StatefulBuilder(
                     builder: (context, _setState) {
+                      print('StatefulBuilder build');
                       return Checkbox(
                         value: _withTree, //默认不选中
                         onChanged: (bool? value) {
@@ -362,6 +375,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
   }
 
   Future<bool?> showDeleteConfirmDialog4() {
+    print('showDeleteConfirmDialog4');
     bool _withTree = false;
     return showDialog<bool>(
       context: context,
@@ -378,6 +392,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
                   const Text("同时删除子目录？"),
 
                   ///缩小context的范围,借助Builder包裹一层,为的是下面context的获取仅仅局限在这个小的范围
+                  ///_withTree是外部的状态,这里对AlterDialog来说仅仅相当于一个“作用域外”的变量
                   Builder(
                     builder: (BuildContext context) {
                       return Checkbox(
@@ -413,6 +428,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
   }
 
   Future<bool?> showDeleteConfirmDialog5() {
+    ///直接采用系统的外部封装对话框样式showGeneralDialog+child组件为AlertDialog的也可以，666
     return showCustomDialog<bool>(
       context: context,
       builder: (context) {
@@ -457,7 +473,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
   showLoadingDialog() {
     showDialog(
       context: context,
-      //barrierDismissible: false, //点击遮罩不关闭对话框
+      // barrierDismissible: false, //点击遮罩不关闭对话框
       builder: (context) {
         ///由于showDialog中给对话框设置了最小宽度约束,我们可以使用UnconstrainedBox
         ///先抵消showDialog对宽度的约束,然后再使用SizeBox指定宽度
@@ -479,7 +495,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
               ),
             ),
           ),
-        );
+        ).withBorder();
       },
     );
   }
@@ -541,7 +557,7 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
       },
       barrierDismissible: barrierDismissible,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      barrierColor: Colors.black87,
+      barrierColor: Colors.black45,
       transitionDuration: const Duration(milliseconds: 150), //dialog的显隐动画时长
       transitionBuilder: _buildMaterialDialogTransitions, //dialog动画
     );

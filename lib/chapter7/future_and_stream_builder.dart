@@ -34,7 +34,6 @@ class _FutureAndStreamBuilderRouteState
     //           return Text("Contents: ${snapshot.data}");
     //         }
     //       } else {
-    //         //
     //         return const CircularProgressIndicator();
     //       }
     //     },

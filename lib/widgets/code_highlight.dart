@@ -305,7 +305,7 @@ class HighlightTheme {
   }
 
   @override
-  int get hashCode => hashValues(light, dark);
+  int get hashCode => Object.hash(light, dark);
 }
 
 abstract class _BaseWidget extends StatefulWidget {

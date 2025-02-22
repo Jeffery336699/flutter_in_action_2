@@ -9,6 +9,7 @@ class ValueListenableRoute extends StatefulWidget {
 
 class _ValueListenableState extends State<ValueListenableRoute> {
   // 定义一个ValueNotifier，当数字变化时会通知 ValueListenableBuilder
+  // Optimize: 系统支持，等同Android原生的LiveData简直太完美了
   final ValueNotifier<int> _counter = ValueNotifier<int>(0);
   static const double textScaleFactor = 1.5;
 
@@ -21,6 +22,8 @@ class _ValueListenableState extends State<ValueListenableRoute> {
       body: Center(
         child: ValueListenableBuilder<int>(
           builder: (BuildContext context, int value, Widget? child) {
+            print('ValueListenableBuilder build');
+
             /// builder 方法只会在 _counter 变化时被调用
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -39,6 +42,7 @@ class _ValueListenableState extends State<ValueListenableRoute> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         // 点击后值 +1，触发 ValueListenableBuilder 重新构建
+        // Optimize: 仅仅想要监听这个值变化的部分widget触发重组，而不是整个页面（666，简直就是LiveData的翻版）
         onPressed: () => _counter.value += 1,
       ),
     );
