@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Page;
+import 'package:flutter_in_action_2/ext.dart';
 
 import '../common.dart';
 
@@ -16,6 +17,7 @@ class WatermarkRoute extends StatelessWidget {
           padding: false),
       Page('水印偏移-FittedBox', wTextWaterMarkWithFittedBox(), padding: false),
       Page('水印指定-OverflowBox', wTextWaterMarkWithOverflowBox(), padding: false),
+      Page('OverflowBox示例', wOverflowBox(), padding: false),
     ]);
   }
 
@@ -42,25 +44,28 @@ class WatermarkRoute extends StatelessWidget {
   }
 
   Widget wTextWaterMark(context) {
-    const TextStyle();
-    return Stack(
-      children: [
-        wPage(),
-        IgnorePointer(
-          //IgnorePointer 它能控制其子小部件是否响应指针（触摸或光标）事件
-          child: WaterMark(
-            painter: TextWaterMarkPainter(
-              text: 'Flutter 中国 @wendux',
-              padding: const EdgeInsets.only(top: 18),
-              textStyle: const TextStyle(
-                color: Colors.black,
+    return StatefulBuilder(builder: (context, setState) {
+      return Stack(
+        children: [
+          wPage(onPressed: () {
+            setState(() {});
+          }),
+          IgnorePointer(
+            //IgnorePointer 它能忽略其子小部件响应指针（触摸或光标）事件
+            child: WaterMark(
+              painter: TextWaterMarkPainter(
+                text: 'Flutter 中国 @wendux',
+                padding: const EdgeInsets.only(top: 18),
+                textStyle: const TextStyle(
+                  color: Colors.black,
+                ),
+                //rotate: -20,
               ),
-              //rotate: -20,
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    },);
   }
 
   Widget wStaggerTextWaterMark() {
@@ -143,6 +148,33 @@ class WatermarkRoute extends StatelessWidget {
     );
   }
 
+  ///OverflowBox的布局过程没有影响父组件，只改变子组件的布局范围，因此造成了“突破父组件边界”的视觉效果
+  ///例如如下的红色区域仍然是没法点击的,包括Text也是紧贴这上一个组件布局的
+  Widget wOverflowBox() {
+    return Center(child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 100,
+          height: 100,
+          color: Colors.blue,
+          child: OverflowBox(
+            maxWidth: 200,
+            maxHeight: 200,
+            child: Container(
+              width: 150,
+              height: 150,
+              color: Colors.red,
+            ).onTap(() {
+              print('点击了红色区域');
+              }),
+          ).opacity(0.3),
+        ),
+        Text('text'),
+        ],
+    ),);
+  }
+
   Widget wTextWaterMarkWithUnconstrainedBox() {
     return Stack(
       children: [
@@ -184,7 +216,7 @@ class WatermarkRoute extends StatelessWidget {
           child: LayoutBuilder(
             builder: (_, constraints) {
               return FittedBox(
-                // FittedBox会取消父组件对子组件的约束
+                // FittedBox会取消父组件对子组件的约束，子组件大于父组件时会缩小（类似图片的缩放效果）
                 alignment: Alignment.topRight, // 通过对齐方式来实现平移效果
                 fit: BoxFit.none, //不进行任何适配处理
                 child: SizedBox(
@@ -210,11 +242,13 @@ class WatermarkRoute extends StatelessWidget {
     );
   }
 
-  Widget wPage() {
+  Widget wPage({ VoidCallback? onPressed}) {
     return Center(
       child: ElevatedButton(
         child: const Text('按钮'),
-        onPressed: () => print('tab'),
+        onPressed: () {
+          onPressed?.call();
+        },
       ),
     );
   }

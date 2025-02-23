@@ -13,9 +13,8 @@ class CustomCheckbox2 extends LeafRenderObjectWidget {
     this.radius = 2.0,
     this.onChanged,
   }) : super(key: key);
-
   final double strokeWidth; // “勾”的线条宽度
-  final Color strokeColor; // “勾”的线条宽度
+  final Color strokeColor; // “勾”的线条颜色
   final Color? fillColor; // 填充颜色
   final bool value; //选中状态
   final double radius; // 圆角
@@ -66,7 +65,7 @@ class RenderCustomCheckbox2 extends RenderBox with RenderObjectAnimationMixin {
   @override
   bool get isRepaintBoundary => true;
 
-  //背景动画时长占比（背景动画要在前40%的时间内执行完毕，之后执行打勾动画）
+  ///背景动画时长占比（背景动画要在前40%的时间内执行完毕，之后执行打勾动画）
   final double bgAnimationInterval = .4;
 
   @override
@@ -77,7 +76,7 @@ class RenderCustomCheckbox2 extends RenderBox with RenderObjectAnimationMixin {
   }
 
   void _drawBackground(PaintingContext context, Rect rect) {
-    Color color = value ? fillColor : Colors.grey;
+    Color color = Colors.pink;
     var paint = Paint()
       ..isAntiAlias = true
       ..style = PaintingStyle.fill //填充
@@ -87,9 +86,10 @@ class RenderCustomCheckbox2 extends RenderBox with RenderObjectAnimationMixin {
     // 我们对矩形做插值
     final outer = RRect.fromRectXY(rect, radius, radius);
     var rects = [
-      rect.inflate(-strokeWidth),
+      rect.inflate(-strokeWidth), // 内部矩形(减去边框宽度)
       Rect.fromCenter(center: rect.center, width: 0, height: 0)
     ];
+
     var rectProgress = Rect.lerp(
       rects[0],
       rects[1],

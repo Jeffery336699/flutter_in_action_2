@@ -15,15 +15,17 @@ class TranslateWithExpandedPaintingArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
+        print('dx=${offset.dx},dy=${offset.dy}');
         final dx = offset.dx.abs();
         final dy = offset.dy.abs();
-        print('dx=$dx,dy=$dy');
         Widget widget = OverflowBox(
           //平移多少，则子组件相应轴的长度增加多少
           minWidth: constraints.minWidth + dx,
           maxWidth: constraints.maxWidth + dx,
           minHeight: constraints.minHeight + dy,
           maxHeight: constraints.maxHeight + dy,
+          // centerRight = Alignment(1.0, 0.0);
+          // bottomRight = Alignment(1.0, 1.0);
           alignment: Alignment(
             // 不同方向的平移，要指定不同的对齐方式
             offset.dx <= 0 ? 1 : -1,

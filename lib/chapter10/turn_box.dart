@@ -18,6 +18,8 @@ class _TurnBoxRouteState extends State<TurnBoxRoute> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          // Optimize: 内部封装了RotationTransition, 但是每次setState都会重新build,
+          // Optimize: 会导致内部组件的didUpdateWidget被调用(处理动画的逻辑)
           TurnBox(
             key: const ValueKey("1"),
             turns: _turns,

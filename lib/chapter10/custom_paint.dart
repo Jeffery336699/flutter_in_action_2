@@ -32,7 +32,7 @@ class CustomPaintRoute extends StatelessWidget {
 class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    print('MyPainter paint');
+    print('MyPainter paint，size=$size');
     var rect = Offset.zero & size;
     print('rect:$rect');
     //画棋盘
@@ -41,7 +41,8 @@ class MyPainter extends CustomPainter {
     drawPieces(canvas, rect);
   }
 
-  // 在实际场景中正确使用此方法可以避免重绘开销，我们简单的返回false;因为此时的棋盘与旗子都是固定的(为的是展示给我们看),为了提高性能直接返回false(不需要重绘)
+  // 在实际场景中正确使用此方法可以避免重绘开销，我们简单的返回false;因为此时的棋盘与旗子都是固定的(为的是展示给我们看),
+  // 为了提高性能直接返回false(不需要重绘)
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

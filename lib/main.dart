@@ -253,9 +253,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ExpansionTile(
               title: const Text("自定义组件"),
               children: _generateItem(context, [
-                Page("GradientButton", const GradientButtonRoute()),
+                Page("GradientButton(组合方式)", const GradientButtonRoute()),
                 Page("Material APP", const ScaffoldRoute(),
-                    withScaffold: false),
+                    withScaffold: false,showLog: false),
                 Page("旋转容器：TurnBox", const TurnBoxRoute()),
                 Page("CustomPaint", const CustomPaintRoute()),
                 Page("自绘控件：圆形渐变进度条", const GradientCircularProgressRoute()),

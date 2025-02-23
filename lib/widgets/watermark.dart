@@ -25,6 +25,7 @@ class _WaterMarkState extends State<WaterMark> {
 
   @override
   void initState() {
+    print('initState==》State:$hashCode');
     // 缓存的是promise
     _memoryImageFuture = _getWaterMarkImage();
     super.initState();
@@ -32,6 +33,7 @@ class _WaterMarkState extends State<WaterMark> {
 
   @override
   Widget build(BuildContext context) {
+    print('build==》State:$hashCode');
     return SizedBox.expand(
       child: FutureBuilder(
         future: _memoryImageFuture,
@@ -58,12 +60,16 @@ class _WaterMarkState extends State<WaterMark> {
 
   // 在Flutter中，StatefulWidget的State类包含一个叫做didUpdateWidget
   // 的生命周期方法。当与State对象相关联的Widget在Widget树中重建时，如果新的Widget的runtimeType和旧Widget
-  // 的一样，但是任何一个属性发生了变化，Flutter框架就会调用didUpdateWidget方法。
+  // 的一样（且key也相同），但是任何一个属性发生了变化，Flutter框架就会调用didUpdateWidget方法。
 
-  // didUpdateWidget方法只会在Widget的key和类型未变且作为StatefulWidget
-  // 的一部分被重新构建时调用。
+  // 如果当前组件依赖的父组件传递的某些参数发生变化，并且需要根据这些变化对 state
+  // （例如内部的某些变量）进行调整或触发副作用，可以在 didUpdateWidget 中完成此操作
+
+  ///widget一般是不可变的，理解为纯函数，唯一输入决定唯一输出，当输入改变时，还想复用之前的State的话，就需要在这个方法中处理（纯个人理解）
+  ///结合“文本水印”的样例，我改为了StatefulWidget并且重新build父组件，此时的didUpdateWidget方法就会被调用
   @override
   void didUpdateWidget(WaterMark oldWidget) {
+    print('didUpdateWidget==》State:$hashCode');
     // 如果画笔发生了变化（类型或者配置）则重新绘制水印
     if (widget.painter.runtimeType != oldWidget.painter.runtimeType ||
         widget.painter.shouldRepaint(oldWidget.painter)) {
@@ -212,7 +218,7 @@ class TextWaterMarkPainter extends WaterMarkPainter {
     );
     //添加文本和样式
     painter.text = TextSpan(text: text, style: _textStyle);
-    //对文本进行布局
+    //对文本进行布局，这样就能计算出Text的宽高信息了
     painter.layout();
 
     //文本占用的真实宽度

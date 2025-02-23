@@ -49,9 +49,9 @@ class _TurnBoxState extends State<TurnBox> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     ///build方法当然只被调用一次,但是内部的_controller.value是一直在变化的
     ///并且由于lowerBound/upperBound设置成正负无穷,所以value的变化是不受[0,1]的限制的,转一圈还是1的步长
-    print('${widget.key} build=======>>>>>>');
+    // print('${widget.key} build=======>>>>>>');
     _controller.addListener(() {
-      print('${widget.key} -- ${_controller.value}');
+      // print('${widget.key} -- ${_controller.value}');
     });
     return RotationTransition(
       turns: _controller,

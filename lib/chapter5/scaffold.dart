@@ -60,10 +60,11 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
         ),
       ),
       // bottomNavigationBar: BottomNavigationBar(
-      //   items: <BottomNavigationBarItem>[
+      //   items: const <BottomNavigationBarItem>[
       //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
       //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.business), label: 'Business'),
+      //         icon: SizedBox(), label: ''),
+      //
       //     BottomNavigationBarItem(icon: Icon(Icons.school), label: 'School'),
       //   ],
       //   currentIndex: _selectedIndex,

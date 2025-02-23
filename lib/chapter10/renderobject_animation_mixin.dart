@@ -7,6 +7,7 @@ mixin RenderObjectAnimationMixin on RenderObject {
   double _progress = 0;
   int? _lastTimeStamp;
 
+  ///子类主要就是靠这个progress来驱动动画的执行（涉及线性插值的计算）
   double get progress => _progress;
 
   Duration get duration => const Duration(milliseconds: 200);
@@ -31,7 +32,7 @@ mixin RenderObjectAnimationMixin on RenderObject {
   }
 
   void _scheduleAnimation() {
-    //SchedulerBinding.instance.remo
+    // Optimize: 在动画完成后不再请求重绘
     if (_animationStatus != AnimationStatus.completed) {
       SchedulerBinding.instance.addPostFrameCallback((Duration timeStamp) {
         if (_lastTimeStamp != null) {
@@ -49,6 +50,7 @@ mixin RenderObjectAnimationMixin on RenderObject {
 
           _progress = _progress + delta;
           if (_progress >= 1 || _progress <= 0) {
+            // 自己来维护这个动画状态（无论正向完成还是反向完成，都归为完成）
             _animationStatus = AnimationStatus.completed;
             _progress = _progress.clamp(0, 1);
           }

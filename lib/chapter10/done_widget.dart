@@ -11,11 +11,11 @@ class DoneWidget extends LeafRenderObjectWidget {
       this.show = true})
       : super(key: key);
 
-  //线条宽度
+  ///线条宽度
   final double strokeWidth;
-  //轮廓颜色或填充色
+  ///轮廓颜色或填充色
   final Color color;
-  //如果为true，则没有填充色，color代表轮廓的颜色；如果为false，则color为填充色
+  ///如果为true，则没有填充色，color代表轮廓的颜色；如果为false，则color为填充色
   final bool outline;
   final bool show;
 
@@ -80,7 +80,7 @@ class RenderDoneObject extends RenderBox with RenderObjectAnimationMixin {
       rect = rect.deflate(strokeWidth / 2);
     }
 
-    // 画背景圆
+    // 画背景圆，如果是边框就是绘制的外部的圆（绿色），如果是填充就是绘制的内部的圆
     context.canvas.drawCircle(rect.center, rect.shortestSide / 2, paint);
 
     paint

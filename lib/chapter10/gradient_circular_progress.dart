@@ -95,6 +95,7 @@ class GradientCircularProgressRouteState
                             radius: 50.0,
                             stokeWidth: 5.0,
                             strokeCapRound: true,
+                            // 包裹曲线动画
                             value: CurvedAnimation(
                               parent: _animationController,
                               curve: Curves.decelerate,
@@ -199,7 +200,7 @@ class GradientCircularProgressRouteState
                             Positioned(
                               top: .0,
                               child: TurnBox(
-                                turns: .75,
+                                turns: -1 / 4,
                                 child: GradientCircularProgressIndicator(
                                   colors: [Colors.teal, Colors.cyan.shade500],
                                   radius: 100.0,

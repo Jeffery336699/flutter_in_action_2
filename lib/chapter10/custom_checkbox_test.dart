@@ -38,11 +38,11 @@ class _CustomCheckboxTestState extends State<CustomCheckboxTest> {
             ),
           ),
           SizedBox(
-            width: 30,
-            height: 30,
+            width: 60,
+            height: 60,
             child: CustomCheckbox(
               strokeWidth: 3,
-              radius: 3,
+              radius: 6,
               value: _checked,
               onChanged: _onChange,
             ),

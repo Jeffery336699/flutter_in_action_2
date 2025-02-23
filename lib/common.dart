@@ -44,7 +44,7 @@ void drawPieces(Canvas canvas, Rect rect) {
   //画一个黑子
   canvas.drawCircle(
     Offset(rect.center.dx - eWidth / 2, rect.center.dy - eHeight / 2),
-    min(eWidth / 2, eHeight / 2) - 2,
+    min(eWidth / 2, eHeight / 2) - 2, //加点偏移避免棋子连在一起
     paint,
   );
   //画一个白子
