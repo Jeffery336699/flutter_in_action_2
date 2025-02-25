@@ -60,10 +60,8 @@ class _MyImageState extends State<MyImage> {
 
   void _getImage() {
     var oldImageStream = _imageStream;
-    _imageStream =
-        widget.imageProvider.resolve(createLocalImageConfiguration(context));
-    print(
-        '_getImage-->${_imageStream!.key} , ${oldImageStream?.key} ; 不相等: ${_imageStream!.key != oldImageStream?.key}');
+    _imageStream = widget.imageProvider.resolve(createLocalImageConfiguration(context));
+    print('_getImage-->\n${_imageStream!.key} \n${oldImageStream?.key} \n不相等: ${_imageStream!.key != oldImageStream?.key}');
     if (_imageStream!.key != oldImageStream?.key) {
       // If the keys are the same, then we got the same image back, and so we don't
       // need to update the listeners. If the key changed, though, we must make sure

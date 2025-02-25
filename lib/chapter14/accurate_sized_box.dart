@@ -41,10 +41,14 @@ class RenderAccurateSizedBox extends RenderProxyBoxWithHitTestBehavior {
   // performResize 中会调用
   @override
   Size computeDryLayout(BoxConstraints constraints) {
+    print('1. computeDryLayout: size.width=${constraints.maxWidth} , width=$width');
     //设置当前元素宽高，遵守父组件的约束
     return constraints.constrain(Size(width, height));
   }
 
+  // performResize和 Android 中的onMeasure之间确实存在一定相似性，特别是在它们负责计算组件尺寸这一点上，
+  // 但在具体实现和使用场景上也有显著区别。Flutter 的布局系统更强调使用约束传递和父子关系的配合，
+  // 直接涉及performResize的场景相对较少，而 Android 的onMeasure则是必不可少的核心方法。
   // @override
   // void performResize() {
   //   // default behavior for subclasses that have sizedByParent = true
@@ -53,15 +57,15 @@ class RenderAccurateSizedBox extends RenderProxyBoxWithHitTestBehavior {
   // }
 
   @override
-  void performLayout() {
+  Future<void> performLayout() async {
     /// performLayout: size.width=98.0 , width=50.0
     /// performLayout: size.height=98.0 , height=50.0
-    print('performLayout: size.width=${size.width} , width=$width');
-    print('performLayout: size.height=${size.height} , height=$height');
+    print('2. pL父容器约束width=${size.width} , 子child请求width=$width');
+    print('2. pL父容器约束height=${size.height} , 子child请求height=$height');
     child!.layout(
       BoxConstraints.tight(
           Size(min(size.width, width), min(size.height, height))),
-      // todo parentUseSize为false时，告诉子类父容器(当前)是固定大小，子元素大小改变时不影响父元素;
+      // todo parentUseSize为false时，告诉子组件布局时，本容器(当前)是固定大小，子元素大小改变时不影响父元素;
       // todo 即 子组件的布局边界会是它自身，子组件布局发生变化后不会影响当前组件
       parentUsesSize: false,
     );
@@ -91,7 +95,7 @@ class AccurateSizedBoxRoute extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8),
           child: ConstrainedBox(
             constraints: BoxConstraints.tight(const Size(100, 100)),
-            //实际还是在父容器的约束范围内,只不过满足子类的大小
+            //实际还是在父容器的约束范围内,只不过满足子类的大小，从边框就能看出
             child: AccurateSizedBox(
               width: 50,
               height: 50,

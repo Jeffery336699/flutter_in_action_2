@@ -37,7 +37,6 @@ void drawChessboard(Canvas canvas, Rect rect) {
 void drawPieces(Canvas canvas, Rect rect) {
   double eWidth = rect.width / 15;
   double eHeight = rect.height / 15;
-  //画一个黑子
   var paint = Paint()
     ..style = PaintingStyle.fill
     ..color = Colors.black;

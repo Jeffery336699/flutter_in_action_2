@@ -34,19 +34,21 @@ class RenderLeftRight extends RenderBox
   void performLayout() {
     final BoxConstraints constraints = this.constraints;
     RenderBox leftChild = firstChild!;
-    LeftRightParentData childParentData =
+    LeftRightParentData leftChildParentData =
         leftChild.parentData! as LeftRightParentData;
-    RenderBox rightChild = childParentData.nextSibling!;
+    // childParentData.nextSibling!指的是当前节点的下一个兄弟节点。
+    RenderBox rightChild = leftChildParentData.nextSibling!;
 
-    //我们限制右孩子宽度不超过总宽度一半
+    // 当前的环境实在容器中，此时布局的是右孩子，需要结合我（拥有双孩子的容器）的上层父容器的约束条件来调整给到右孩子的约束，
+    // 我们限制右孩子宽度不超过总宽度一半，只有布局完成才能获取它右孩子的大小size
     rightChild.layout(
       constraints.copyWith(maxWidth: constraints.maxWidth / 2),
       parentUsesSize: true,
     );
 
     //调整右子节点的offset
-    childParentData = rightChild.parentData! as LeftRightParentData;
-    childParentData.offset = Offset(
+    LeftRightParentData rightChildParentData = rightChild.parentData! as LeftRightParentData;
+    rightChildParentData.offset = Offset(
       constraints.maxWidth - rightChild.size.width,
       0,
     );
@@ -63,7 +65,21 @@ class RenderLeftRight extends RenderBox
       parentUsesSize: true,
     );
 
-    //设置容器的size
+    // 判断左右孩子的高度，在布局时进行垂直偏移，传递到parentData中（这里增加个居中显示的功能）
+    // Optimize: 我天，GitHubCopilot真是太强了，写个中文注释直接给我写代码了！！
+    if (leftChild.size.height > rightChild.size.height) {
+      rightChildParentData.offset = Offset(
+        rightChildParentData.offset.dx,
+        (leftChild.size.height - rightChild.size.height) / 2,
+      );
+    } else {
+      leftChildParentData.offset = Offset(
+        leftChildParentData.offset.dx,
+        (rightChild.size.height - leftChild.size.height) / 2,
+      );
+    }
+
+    //在所有孩子布局完毕后，最终确定容器（此拥有双孩子的容器）的size
     size = Size(
       constraints.maxWidth,
       max(leftChild.size.height, rightChild.size.height),
@@ -88,8 +104,8 @@ class LeftRightBoxTestRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return LeftRightBox(children: [
       const Text("国漫精选").withBorder(),
-      GestureDetector(onTap: () => print("点击更多"), child: const Text("更多》"))
+      GestureDetector(onTap: () => print("点击更多"), child:  Text("更多》", style: TextStyle(fontSize: 32)))
           .withBorder(color: Colors.red),
-    ]);
+    ]).withBorder(color: Colors.yellow);
   }
 }

@@ -18,7 +18,11 @@ class _PaintTestState extends State<PaintTest> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const ChessWidget(),
+          SizedBox(
+            width: 250,
+            height: 250,
+            child: ChessWidget(),
+          ),
           ElevatedButton(
             onPressed: () {
               setState(() {});
@@ -45,13 +49,17 @@ class RenderChess extends RenderBox {
 
   @override
   void performLayout() {
+    // Flutter的performLayout更接近于Android的onLayout方法，因为它不仅负责测量，还负责布局
+    // （更多的是传递给child约束、偏移，以及确定自身大小）
+    // Android的onMeasure更接近于Flutter的performResize方法，因为两者都主要负责测量视图的大小。
+    // eg.约束棋盘大小,父类给了约束宽高用父类的，否则用150
     size = constraints.constrain(
       constraints.isTight ? Size.infinite : const Size(150, 150),
     );
   }
-
-  // @override
-  // get isRepaintBoundary => true;
+  // 这里默认为false，棋子与父容器在同一个图层，父容器的图层的draw会引起该RenderObject的重绘
+  @override
+  get isRepaintBoundary => true;
 
   //保存之前的棋盘大小
   Rect _rect = Rect.zero;
