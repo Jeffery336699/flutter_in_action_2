@@ -11,7 +11,8 @@ class SocketRoute extends StatelessWidget {
     return FutureBuilder(
       future: _request(),
       builder: (context, snapShot) {
-        return Text(snapShot.data.toString());
+        return SingleChildScrollView(child:
+          Text(snapShot.data.toString()),);
       },
     );
   }
@@ -21,7 +22,7 @@ class SocketRoute extends StatelessWidget {
     var socket = await Socket.connect("baidu.com", 80);
     //根据http协议，发送请求头; todo 纯纯模仿http协议,进行最底层的网络请求
     socket.writeln("GET / HTTP/1.1");
-    socket.writeln("Host:baidu.com");
+    socket.writeln("Host:www.baidu.com");
     socket.writeln("Connection:close");
     socket.writeln();
     await socket.flush(); //发送

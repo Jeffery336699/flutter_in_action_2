@@ -45,7 +45,7 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
                   _text = '网络不通...';
                   print(snapshot.error);
                 } else if (snapshot.hasData) {
-                  _text = 'echo: ${snapshot.data}';
+                  _text += 'echo: ${snapshot.data} \n';
                 }
                 print("ss");
                 return Padding(
