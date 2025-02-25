@@ -15,7 +15,7 @@ class _WebViewTestState extends State<WebViewTest> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: WebView(
-        initialUrl: 'https://m.baidu.com',
+        initialUrl: 'https://www.baidu.com',
         onWebViewCreated: (controller) => _controller = controller,
         onProgress: (progress) => print(progress),
         onPageStarted: (url) => print('start loading: $url'),
