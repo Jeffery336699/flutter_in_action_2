@@ -57,6 +57,7 @@ class RenderChess extends RenderBox {
       constraints.isTight ? Size.infinite : const Size(150, 150),
     );
   }
+
   // 这里默认为false，棋子与父容器在同一个图层，父容器的图层的draw会引起该RenderObject的重绘
   @override
   get isRepaintBoundary => true;
@@ -82,9 +83,9 @@ class RenderChess extends RenderBox {
     Rect rect = offset & size;
     //检查棋盘大小是否需要变化，如果变化，则需要重新绘制棋盘并缓存
     _checkIfChessboardNeedsUpdate(rect);
-    //将缓存棋盘的layer添加到context中 todo 实际上是添加到当前节点的第一个绘制边界节点的Layer树中
+    //todo 将缓存棋盘的layer（承载着绘制指令）添加到context中，实际上是添加到当前节点的第一个绘制边界节点的Layer树中
     context.addLayer(layerHandle.layer!);
-    //再画棋子 todo 对象仍然是同一个,保证layerHandle.layer的渲染图层在尺寸没变的情况下还是之前的那个渲染图层(棋盘)
+    //todo 再画棋子，对象仍然是同一个，保证layerHandle.layer的渲染图层在尺寸没变的情况下还是之前的那个渲染图层(棋盘)
     print("paint pieces - $hashCode");
     drawPieces(context.canvas, rect);
   }
