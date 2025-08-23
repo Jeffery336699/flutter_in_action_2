@@ -125,15 +125,33 @@ class SizeConstraintsRoute extends StatelessWidget {
             ),
 
             ///不约束子组件的大小,组件多大就多大
+            ///`UnconstrainedBox` 会移除其父组件（在这里是 `Column`）对子组件的约束。
+            ///
+            /// 通常情况下，`Column` 会给它的子组件施加一个有限的宽度约束（通常是屏幕宽度）。`Text` 组件在接收到有限的宽度约束时会自动换行。
+            ///
+            /// 然而，由于您将 `Text` 放置在了 `UnconstrainedBox` 中，`UnconstrainedBox` 传递给其子组件的宽度约束是无限的。
+            /// 因此，`Text` 组件认为它有无限的空间来水平布局，所以它不会自动换行，而是在一行上继续渲染，这通常会导致像素溢出（overflow）。
+            ///
+            /// 简单来说，`UnconstrainedBox` “告诉” `Text` 组件：“你可以随心所欲地变宽”，所以 `Text` 就不会换行了。
             UnconstrainedBox(
               alignment: Alignment.topLeft,
+              //     `clipBehavior: Clip.hardEdge` 这个属性定义了当子组件的内容超出其父组件边界时如何进行裁剪。
+              //
+              // 在这里，它用在 `UnconstrainedBox` 上：
+              //
+              // 1.  `UnconstrainedBox` 允许其子组件（`Padding` -> `Wrap` -> `Text`）按其期望的尺寸渲染，
+              //      这可能导致子组件比 `UnconstrainedBox` 本身要大。
+              // 2.  `Clip.hardEdge` 意味着如果子组件的尺寸超出了 `UnconstrainedBox` 的边界，超出的部分将被直接裁剪掉，
+              //      并且裁剪的边缘不会进行抗锯齿处理。这是一种性能较高的裁剪方式。
+              //
+              // 简单来说，它确保了溢出的内容不会被绘制到组件的边界之外。
               clipBehavior: Clip.hardEdge,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Wrap(
                   children: [
                     Text(
-                      'xx' * 30,
+                      '张三丰的徒弟' * 30,
                       maxLines: 3,
                     )
                   ],

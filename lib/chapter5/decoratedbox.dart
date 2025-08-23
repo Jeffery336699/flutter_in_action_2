@@ -38,7 +38,7 @@ class DecoratedBoxRoute extends StatelessWidget {
           height: 100,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(80),
+              borderRadius: BorderRadius.circular(50),
               image: const DecorationImage(
                 image: AssetImage("imgs/avatar.png"),
                 //alignment: Alignment.topLeft

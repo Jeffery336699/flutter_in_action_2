@@ -14,6 +14,7 @@ class ResponsiveColumn extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         print('[$hashCode] LayoutBuilder---> ${constraints.maxWidth}');
+        print('constraints:$constraints');
         if (constraints.maxWidth < 200) {
           return Column(children: children, mainAxisSize: MainAxisSize.min);
         } else {

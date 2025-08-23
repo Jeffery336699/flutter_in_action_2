@@ -7,7 +7,7 @@ class FixedExtentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      // itemExtent: 56,
+      itemExtent: 56,
       // prototypeItem: const ListTile(title: Text("1")),
       itemBuilder: (context, index) {
         ///1.上述啥都不加的情况,0: BoxConstraints(w=450.0, 0.0<=h<=Infinity)

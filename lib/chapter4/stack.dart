@@ -19,6 +19,11 @@ class StackRoute extends StatelessWidget {
             ),
             color: Colors.red,
           ),
+          // 这个 `Positioned` Widget 只设置了 `left` 属性，没有设置 `top` 或 `bottom` 这样的垂直方向的属性。
+          // 对于这种部分定位（partially positioned）的子组件，`Stack` 会使用它的 `alignment` 属性来决定其在未指定方向上的位置。
+          //
+          // 在这个例子中，`Stack` 的 `alignment` 被设置为 `Alignment.center`（见第 12 行）。
+          // 由于 `Positioned` Widget 的垂直位置没有被指定，它会根据 `Stack` 的 `alignment` 属性在垂直方向上居中对齐。
           const Positioned(
             left: 18.0,
             child: Text("I am Jack"),

@@ -51,7 +51,7 @@ class TransformRoute extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          ///可以看出Transform变换仅仅是一种视觉上的变化(绘制阶段),实际位置并没有发生变化(布局阶段)
+          ///可以看出Transform变换仅仅是一种视觉上的变化(绘制阶段),针对的目标是其child子组件,实际位置并没有发生变化(布局阶段)
           DecoratedBox(
             decoration: const BoxDecoration(color: Colors.red),
             child: Transform.scale(

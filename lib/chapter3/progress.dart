@@ -80,6 +80,12 @@ class _ProgressRouteState extends State<ProgressRoute>
                 .animate(_animationController),
             value: _animationController.value,
           ),
+          // 这个 `CircularProgressIndicator` 会一直转圈，是因为它的 `value` 属性没有被设置。
+          //
+          // 当 `CircularProgressIndicator` 的 `value` 属性为 `null` 时，它会显示一个不确定的进度指示器，表现为持续的旋转动画，用来表示一个正在进行但进度未知的操作。
+          //
+          // 在您的代码中，其他的进度条，例如第 77-82 行的 `CircularProgressIndicator`，设置了 `value: _animationController.value`，
+          // 所以它会根据动画控制器的值来显示一个从 0% 到 100% 的确切进度。而您选择的这个组件（第 83-87 行）没有设置 `value`，因此它会一直显示为不确定状态的旋转动画。
           CircularProgressIndicator(
             backgroundColor: Colors.grey[200],
             valueColor: ColorTween(begin: Colors.grey, end: Colors.blue)

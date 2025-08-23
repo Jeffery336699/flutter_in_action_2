@@ -31,7 +31,7 @@ class _TextRouteState extends State<TextRoute> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             children: <Widget>[
@@ -76,9 +76,7 @@ class _TextRouteState extends State<TextRoute> {
             ]),
           ),
 
-          /// 这里DefaultTextStyle中的textAlign没起到作用还是居中显示,
-          /// 原因是Column的crossAxisAlignment属性默认是居中的,所以这里的textAlign属性不生效
-          /// 要想改变可以像第一个组件Row+Expanded的方式,可用空间撑满再在可用空间中进行子组件的摆放
+
           DefaultTextStyle(
             /// 1.设置文本默认样式
             style: const TextStyle(
@@ -89,15 +87,22 @@ class _TextRouteState extends State<TextRoute> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("hello world").withBorder(),
-                Text("I am Jack"),
+                Text("hello world",textAlign: TextAlign.center).withBorder(),
+                /// 这里DefaultTextStyle中的textAlign没起到作用还是居中显示,
+                /// 原因是Text组件本身占用的宽度就是它自身的长度，没有多余的空间给你来摆放textAlign属性
+                /// 要想改变可以像第一个组件Row+Expanded的方式,可用空间撑满再在可用空间中进行子组件的摆放
+                Row(
+                  children: const [
+                    Expanded(child: Text("I am Jack",style: TextStyle(),textAlign: TextAlign.center,)),
+                  ],
+                ),
                 Text(
                   "I am Jack",
                   style: TextStyle(
                     /// ①inherit: true继承的话,只对自身修改的进行变化,其他还是默认(同android设置主题类似)
                     /// ②inherit: false不继承的话,完全与DefaultTextStyle默认样式无关
                     inherit: false,
-                    color: Colors.grey,
+                    color: Colors.green,
                   ),
                 ),
               ],

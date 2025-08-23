@@ -47,8 +47,10 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
                     child: const Text("隐藏键盘"),
                     onPressed: () {
                       /// 当所有编辑框都失去焦点时键盘就会收起
-                      focusNode1.unfocus();
-                      focusNode2.unfocus();
+                      // focusNode1.unfocus();
+                      // focusNode2.unfocus();
+                      /// 这也同样可以
+                      FocusScope.of(context).requestFocus(FocusNode());
                     },
                   ),
                 ],
