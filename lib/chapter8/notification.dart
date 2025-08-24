@@ -25,6 +25,8 @@ class NotificationRouteState extends State<NotificationRoute> {
       child: NotificationListener<MyNotification>(
         onNotification: (notification) {
           setState(() {
+            // 尽然是同一个实例,hashCode也是一样的
+            notification.printLog();
             // _msg += notification.msg + "  ";
             _msg += notification.msg + "\n";
           });
@@ -45,7 +47,7 @@ class NotificationRouteState extends State<NotificationRoute> {
                   return ElevatedButton(
                     ///按钮点击时分发通知
                     onPressed: () =>
-                        MyNotification("Hi" * (++count)).dispatch(context),
+                        MyNotification("Hi" * (++count))..printLog().dispatch(context),
                     child: const Text("Send Notification"),
                   );
                 },
@@ -64,4 +66,9 @@ class MyNotification extends Notification {
   MyNotification(this.msg);
 
   final String msg;
+
+  MyNotification printLog() {
+    print("---MyNotification---[$hashCode]");
+    return this;
+  }
 }

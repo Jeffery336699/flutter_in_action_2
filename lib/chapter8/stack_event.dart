@@ -26,6 +26,8 @@ class HitTestBehaviorTest extends StatelessWidget {
     return Stack(
       children: [
         wChild(1),
+
+        ///只有2添加IgnorePointer后，1才会输出
         wChild(2),
       ],
     );
@@ -57,8 +59,13 @@ class AllChildrenCanResponseEvent extends StatelessWidget {
         // IgnorePointer(child: wChild(0, 200)),
 
         ///HitTestBlocker是老师封装的组件，以后为兄弟节点都能响应事件（1，2都能输出）
-        HitTestBlocker(child: wChild(1, 200)),
-        HitTestBlocker(child: wChild(2, 200)),
+        // HitTestBlocker(child: wChild(1, 200)),
+        // HitTestBlocker(child: wChild(2, 200)),
+
+        ///HitTestBlocker只能通过监听Listener的原始指针事件（仅4输出）
+        HitTestBlocker(child: tapChild(3, 200)),
+        HitTestBlocker(child: tapChild(4, 200)),
+
       ],
     );
   }
@@ -73,6 +80,19 @@ class AllChildrenCanResponseEvent extends StatelessWidget {
       ),
     );
   }
+
+  Widget tapChild(int index, double size) {
+    return InkWell(
+      onTap: () => print(index),
+      child: Container(
+        width: size,
+        height: size,
+        color: Colors.grey,
+      ),
+    );
+  }
+
+
 }
 
 class _WaterMarkTest extends StatelessWidget {
@@ -130,8 +150,9 @@ class StickerTest extends StatelessWidget {
   }
 
   Widget wChild(int index, color, double size) {
+    ///改为InkWell就不会有打印事件了，仅改为Listener才能监听到原始的
     return Listener(
-      onPointerDown: (e) => print('$index'),
+      onPointerDown: (e)=> print('$index'),
       child: Container(
         width: size,
         height: size,
