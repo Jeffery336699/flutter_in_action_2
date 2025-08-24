@@ -326,6 +326,19 @@ class NestedTabBarView2 extends StatelessWidget {
                   delegate: SliverHeaderDelegate.builder(
                     maxHeight: 56,
                     minHeight: 56,
+//       `overlapsContent` 是一个布尔值参数，它表示 `SliverPersistentHeader` 的内容是否与滚动视图中的其他内容（通常是它下面的内容）发生了重叠。
+//
+// 具体来说：
+//
+// *   当用户向上滚动，导致 `SliverPersistentHeader` 下方的内容开始滑入到其后面时，`overlapsContent` 会变为 `true`。
+// *   在内容没有滚动到 `SliverPersistentHeader` 后面时，`overlapsContent` 为 `false`。
+//
+// 在您的代码中，这个参数被用来动态地改变 `TabBar` 所在容器的样式：
+//
+// *   **颜色 (color)**: 当 `overlapsContent` 为 `true` 时，背景色变为 `Colors.blue[300]`，否则使用主题的 `canvasColor`。
+// *   **阴影 (elevation)**: 当 `overlapsContent` 为 `true` 时，`Material` 组件的海拔（`elevation`）被设置为 `4`，从而显示出阴影，以在视觉上将固定的 `Header` 与其下方滚动的内容区分开。
+//
+// 这是一个非常实用的特性，用于在 `Header` 从普通状态变为“悬浮”在内容之上状态时，提供清晰的视觉反馈。
                     builder: (BuildContext context,
                         double shrinkOffset,
                         bool overlapsContent) {

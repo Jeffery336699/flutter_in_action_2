@@ -22,23 +22,23 @@ class _FutureAndStreamBuilderRouteState
 
   @override
   Widget build(BuildContext context) {
-    // return Center(
-    //   child: FutureBuilder<String>(
-    //     future: _future,
-    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //       print(snapshot.connectionState);
-    //       if (snapshot.connectionState == ConnectionState.done) {
-    //         if (snapshot.hasError) {
-    //           return Text("Error: ${snapshot.error}");
-    //         } else {
-    //           return Text("Contents: ${snapshot.data}");
-    //         }
-    //       } else {
-    //         return const CircularProgressIndicator();
-    //       }
-    //     },
-    //   ),
-    // );
+    return Center(
+      child: FutureBuilder<String>(
+        future: _future,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          print(snapshot.connectionState);
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            } else {
+              return Text("Contents: ${snapshot.data}");
+            }
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      ),
+    );
 
     return Center(
       child: StreamBuilder<int>(

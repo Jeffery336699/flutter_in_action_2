@@ -400,6 +400,9 @@ class _DialogTestRouteState extends State<DialogTestRoute> {
                         onChanged: (bool? value) {
                           ///setState本质是调用了Element#markNeedsBuild方法,然后在frame到来时,刷新组件
                           (context as Element).markNeedsBuild();
+                          ///这三姐妹也是牛皮！！
+                          // context.findRenderObject()?.markNeedsLayout();
+                          // context.findRenderObject()?.markNeedsPaint();
                           _withTree = !_withTree;
                         },
                       );
