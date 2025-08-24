@@ -121,6 +121,8 @@ class CustomScrollViewTestRoute extends StatelessWidget {
             ),
           ),
         ),
+        ///其实冲突也说不上，只是所有的垂直方向滚动事件都被CustomScrollView给处理了（当作个整体）
+        buildSliverList(5, Colors.green),
         buildSliverList(20),
       ],
     );

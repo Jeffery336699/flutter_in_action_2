@@ -24,7 +24,7 @@ class _SliverFlexibleHeaderRouteState extends State<SliverFlexibleHeaderRoute> {
         SliverFlexibleHeader(
           visibleExtent: _initHeight,
           builder: (context, availableHeight, direction) {
-            print('build--->');
+            print('build--->availableHeight:$availableHeight');
             return GestureDetector(
               onTap: () => print('tap'),
               child: LayoutBuilder(builder: (context, cons) {
