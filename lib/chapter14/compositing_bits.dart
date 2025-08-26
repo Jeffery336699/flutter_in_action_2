@@ -11,64 +11,66 @@ class CustomRotatedBoxTest extends StatelessWidget {
   Widget build(BuildContext context) {
     //print("tt");
 
-    return Center(
-      child: Column(children: <Widget>[
-        // 1. 演示一下自定义的旋转组件，是带着内部一起变化，而非paint阶段的假象（涉及到更底层的layer，maxtrx4以及GPU渲染）
-        CustomRotatedBox(
-          child: Container(
-            child: Text(
-              "A",
-              textScaleFactor: 7,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.pink[200],
-              border: Border.all(color: Colors.blue, width: 2),
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(children: <Widget>[
+          // 1. 演示一下自定义的旋转组件，是带着内部一起变化，而非paint阶段的假象（涉及到更底层的layer，maxtrx4以及GPU渲染）
+          CustomRotatedBox(
+            child: Container(
+              child: Text(
+                "A",
+                textScaleFactor: 7,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.pink[200],
+                border: Border.all(color: Colors.blue, width: 2),
+              ),
             ),
           ),
-        ),
-
-        // 2. 就算needsCompositing为false，也会把内部跟着一起旋转，因为父子处于同一个图层上
-        CustomRotatedBox(
-          child: Text(
-            "A",
-            textScaleFactor: 5,
-          ),
-        ),
-
-        // 3.1 大前提CustomRotatedBox内部的needsCompositing为false的情况下，简单使用RepaintBoundary包裹，
-        // 把父子图层强行分割开来，此时对父容器的旋转不会影响到RepaintBoundary子容器
-        // 3.2 如果needsCompositing为true，那么RepaintBoundary包裹也无法阻止父容器的旋转影响到子容器，因为其中发生了父子图层的合成操作，
-        // 主要用来针对layer变换操作
-        CustomRotatedBox(
-          child: RepaintBoundary(
+      
+          // 2. 就算needsCompositing为false，也会把内部跟着一起旋转，因为父子处于同一个图层上
+          CustomRotatedBox(
             child: Text(
               "A",
               textScaleFactor: 5,
             ),
           ),
-        ),
-
-        ///系统已经帮我们封装好了变化类组件,内部的layer合成都帮我们做好了
-        RotatedBox(
-          quarterTurns: 1,
-          child: RepaintBoundary(
-            child: Text(
-              "A",
-              textScaleFactor: 5,
+      
+          // 3.1 大前提CustomRotatedBox内部的needsCompositing为false的情况下，简单使用RepaintBoundary包裹，
+          // 把父子图层强行分割开来，此时对父容器的旋转不会影响到RepaintBoundary子容器
+          // 3.2 如果needsCompositing为true，那么RepaintBoundary包裹也无法阻止父容器的旋转影响到子容器，因为其中发生了父子图层的合成操作，
+          // 主要用来针对layer变换操作
+          CustomRotatedBox(
+            child: RepaintBoundary(
+              child: Text(
+                "A",
+                textScaleFactor: 5,
+              ),
             ),
           ),
-        ),
-
-        ///终极版本,直接使用内置的composite
-        CustomRotatedBox2(
-          child: RepaintBoundary(
-            child: Text(
-              "A",
-              textScaleFactor: 5,
+      
+          ///系统已经帮我们封装好了变化类组件,内部的layer合成都帮我们做好了
+          RotatedBox(
+            quarterTurns: 1,
+            child: RepaintBoundary(
+              child: Text(
+                "A",
+                textScaleFactor: 5,
+              ),
             ),
           ),
-        ),
-      ]),
+      
+          ///终极版本,直接使用内置的composite
+          CustomRotatedBox2(
+            child: RepaintBoundary(
+              child: Text(
+                "A",
+                textScaleFactor: 5,
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
 
     // return const Center(

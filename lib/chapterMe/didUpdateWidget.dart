@@ -70,7 +70,8 @@ class _MyAppState extends State<DidUpdateWidget> {
         ),
         floatingActionButton: IconButton(
           icon: const CircleAvatar(
-            child: Icon(Icons.add),
+            radius: 50, // 设置圆形头像的半径为50
+            child: Icon(Icons.add,size: 50,),
           ),
           onPressed: _incrementCounter,
         ),

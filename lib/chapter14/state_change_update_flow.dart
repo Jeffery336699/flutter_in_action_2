@@ -31,7 +31,7 @@ class _StateChangeTestState extends State<StateChangeTest> {
     }
   }
 
-  late StreamSubscription<int> _subscription;
+  StreamSubscription<int>? _subscription;
   final Stream<int> _stream = Stream.periodic(Duration(seconds: 3), (count) => count).take(3);
 
   @override
@@ -53,7 +53,7 @@ class _StateChangeTestState extends State<StateChangeTest> {
 
   @override
   void dispose() {
-    _subscription.cancel();
+    _subscription?.cancel();
     super.dispose();
   }
 

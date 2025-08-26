@@ -41,9 +41,14 @@ class RenderAccurateSizedBox extends RenderProxyBoxWithHitTestBehavior {
   // performResize 中会调用
   @override
   Size computeDryLayout(BoxConstraints constraints) {
-    print('1. computeDryLayout: size.width=${constraints.maxWidth} , width=$width');
+    // 0. 98.0 , 98.0
+    print('0. ${constraints.minWidth} , ${constraints.maxWidth}');
+    print('1. computeDryLayout: constraints=$constraints , width=$width');
     //设置当前元素宽高，遵守父组件的约束
-    return constraints.constrain(Size(width, height));
+     var size = constraints.constrain(Size(width, height));
+    // 1.1 computeDryLayout: size=Size(98.0, 98.0)
+    print('1.1 computeDryLayout: size=$size');
+    return size;
   }
 
   // performResize和 Android 中的onMeasure之间确实存在一定相似性，特别是在它们负责计算组件尺寸这一点上，
@@ -95,7 +100,7 @@ class AccurateSizedBoxRoute extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8),
           child: ConstrainedBox(
             constraints: BoxConstraints.tight(const Size(100, 100)),
-            //实际还是在父容器的约束范围内,只不过满足子类的大小，从边框就能看出
+            // 这个width、height给child设计的，大前提还是在上层约束下
             child: AccurateSizedBox(
               width: 50,
               height: 50,

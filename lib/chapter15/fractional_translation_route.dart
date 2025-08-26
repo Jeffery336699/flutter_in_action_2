@@ -25,7 +25,7 @@ class _FTRouteState extends State<FTRoute> {
             setState(() {
               // Offset(0.5, 0.5)表示向右移动子Widget一半的宽度，向下移动一半的高度。
               offset = const Offset(0.5, 0.5);
-              transformOffset = const Offset(60.0, 60.0);
+              transformOffset = const Offset(50.0, 50.0);
             });
           },
           child: const Text('点击我'),
@@ -65,7 +65,7 @@ class _FTRouteState extends State<FTRoute> {
             print('Tapped!');
           },
           child: Transform(
-            transform: Matrix4.translationValues(50.0, 50.0, 0.0),
+            transform: Matrix4.translationValues(transformOffset.dx, transformOffset.dy, 0.0),
             child: Container(
               width: 100,
               height: 100,

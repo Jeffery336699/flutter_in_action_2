@@ -31,7 +31,7 @@ class _RepaintBoundaryTestState extends State<RepaintBoundaryTest> {
                * 父容器的setState与markNeedsPaint，对触发RepaintBoundary的重绘影响不同
                * 1. setState是在很高层度的从上到下的build、layout、draw,站在更高一层，会触发整个树的重构
                *    ①、如果绘制相关的eg CustomPainter,根据shouldRepaint返回值，来决定RepaintBoundary内是否需要重绘
-               *    ②、其实上面的①的原因还是因为子组件的build重建了，紧接着决定是否需要重绘子组件
+               *    ②、其实上面的①的原因还是因为父组件的build重建了，紧接着决定是否需要重绘子组件
                * 2. 而markNeedsPaint是在draw阶段，在触发当前节点(指context所对应的widget-父容器)的重绘同时
                *    ①、如果子孙阶段存在包裹RepaintBoundary，会阻止子孙节点的重绘，无
                *      论绘制类API eg、CustomPainter的shouldRepaint返回什么（layer另起隔绝了）

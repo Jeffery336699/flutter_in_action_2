@@ -38,6 +38,7 @@ class _OverflowBoxRouteState extends State<OverflowBoxRoute> {
             height: 200,
             color: Color(0xFF000000),
             child: OverflowBox(
+              // alignment: Alignment.topLeft,
               maxWidth: 400,
               maxHeight: 400,
               // OverflowBox允许其子小部件超出上面约束值
@@ -45,10 +46,10 @@ class _OverflowBoxRouteState extends State<OverflowBoxRoute> {
                 width: 300,
                 height: 300,
                 color: Colors.blue,
-              ).opacity(0.6).onTap(() {
+              ).opacity(0.4).onTap(() {
                 print('点击了蓝色容器');
               }),
-            ).withBorder(color: Colors.red),
+            ).withBorder(color: Colors.red,width: 5),
           ),
           Text('你看文本是不是紧贴着上面的绿色容器'),
         ],
