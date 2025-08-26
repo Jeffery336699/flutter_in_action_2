@@ -158,6 +158,7 @@ class WatermarkRoute extends StatelessWidget {
           width: 100,
           height: 100,
           color: Colors.blue,
+          ///OverflowBox外层加个ClipRect把溢出的部分裁剪掉
           child: OverflowBox(
             maxWidth: 200,
             maxHeight: 200,
@@ -183,11 +184,13 @@ class WatermarkRoute extends StatelessWidget {
           child: LayoutBuilder(
             builder: (_, constraints) {
               return UnconstrainedBox(
-                // 取消父组件对子组件大小的约束
+                // 把多出来的裁剪掉，这种方式也是ok的
+                clipBehavior: Clip.hardEdge,
+                // 这里对齐主要是从右上对齐开始，左边就没看起来那么‘呆’🥲
                 alignment: Alignment.topRight,
                 child: SizedBox(
                   //指定 WaterMark 宽度比屏幕长 30 像素
-                  width: constraints.maxWidth + 30,
+                  width: constraints.maxWidth + 40,
                   height: constraints.maxHeight,
                   child: WaterMark(
                     painter: TextWaterMarkPainter(
@@ -196,7 +199,7 @@ class WatermarkRoute extends StatelessWidget {
                         fontSize: 14,
                         color: Colors.black38,
                       ),
-                      rotate: -20,
+                      rotate: 0,
                     ),
                   ),
                 ),
@@ -216,7 +219,7 @@ class WatermarkRoute extends StatelessWidget {
           child: LayoutBuilder(
             builder: (_, constraints) {
               return FittedBox(
-                // FittedBox会取消父组件对子组件的约束，子组件大于父组件时会缩小（类似图片的缩放效果）
+                // FittedBox（我来承担）会取消父组件对子组件的约束，子组件大于父组件时会缩小（类似图片的缩放效果）
                 alignment: Alignment.topRight, // 通过对齐方式来实现平移效果
                 fit: BoxFit.none, //不进行任何适配处理
                 child: SizedBox(

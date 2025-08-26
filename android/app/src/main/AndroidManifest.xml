@@ -1,16 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="club.flutterchina.book">
-    <permission android:name="android.permission.INTERNET" />
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="book">
+        android:label="book"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
-            android:usesCleartextTraffic="true"
-            android:networkSecurityConfig="@xml/network_security_config"
             android:theme="@style/LaunchTheme"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">

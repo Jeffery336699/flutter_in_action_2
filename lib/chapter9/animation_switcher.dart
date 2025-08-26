@@ -127,7 +127,8 @@ class MySlideTransition extends AnimatedWidget {
      */
     print('child:${child.key} offset.dx:${offset.dx}');
 
-    ///针对旧元素默认情况是动画的反向操作,这里调整下偏移取反,从另一边出 666
+    ///针对旧元素默认情况是动画的反向操作,这里调整下偏移取反 [很关键，根据animation的状态区分`新旧元素`<- 注意其有同时进行]
+    // print('position.status:${position.status}');
     if (position.status == AnimationStatus.reverse) {
       offset = Offset(-offset.dx, offset.dy);
     }

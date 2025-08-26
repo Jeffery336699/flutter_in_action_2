@@ -46,7 +46,7 @@ class _DoneWidgetTestRouteState extends State<DoneWidgetTestRoute> {
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: Text("操作成功-2"),
                 ),
-                DoneWidget(show: show),
+                SizedBox(width:68,height:68,child: DoneWidget(show: show)),
               ],
             )
           ],

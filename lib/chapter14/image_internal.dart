@@ -55,6 +55,7 @@ class _MyImageState extends State<MyImage> {
     print(
         'didUpdateWidget: oldWidget.number=${oldWidget.number},widget.number=${widget.number}');
     super.didUpdateWidget(oldWidget);
+    // 内部有重写==操作符，比较url与scale
     if (widget.imageProvider != oldWidget.imageProvider) _getImage();
   }
 

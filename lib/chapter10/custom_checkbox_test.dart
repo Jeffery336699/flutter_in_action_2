@@ -33,6 +33,7 @@ class _CustomCheckboxTestState extends State<CustomCheckboxTest> {
                 strokeWidth: 1,
                 radius: 1,
                 value: _checked,
+                fillColor: Colors.green,
                 onChanged: _onChange,
               ),
             ),

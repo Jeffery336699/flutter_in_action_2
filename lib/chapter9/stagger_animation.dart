@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_action_2/ext.dart';
 
 ///交织动画,在统一的controller下,组合多个动画,串行or并行 执行
 class StaggerRoute extends StatefulWidget {
@@ -28,15 +29,14 @@ class _StaggerRouteState extends State<StaggerRoute>
   }
 
   _playAnimation() async {
-    try {
-      // Optimize: orCancel 属性用于处理动画可能被取消的情况。如果动画被取消，orCancel 属性确保 await 语句不会抛出异常，从而使代码能够优雅地处理取消情况。
-      //先正向执行动画
+      // Optimize: orCancel 属性用于处理动画在执行过程中动画被取消的情况，orCancel 属性确保 await 语句不会抛出异常（返回null），从而使代码能够优雅地处理取消情况。
+      // orCancel 是 TickerFuture 的一个 getter，它返回一个新的 Future。  _controller.forward() 和 _controller.reverse() 都返回一个 TickerFuture。
+      // 当你 await 一个 TickerFuture 时，如果动画在完成前被取消（例如，因为 Widget 被销毁），它会抛出一个 TickerCanceled 异常。
+      // 使用 orCancel 可以优雅地处理这种情况。await _controller.forward().orCancel 所等待的 Future 在动画被取消时会正常完成（值为 null），而不会抛出 TickerCanceled 异常。
+      // 先正向执行动画
       await _controller.forward().orCancel;
-      //再反向执行动画
+      // 再反向执行动画
       await _controller.reverse().orCancel;
-    } on TickerCanceled {
-      // the animation got canceled, probably because we were disposed
-    }
   }
 
   @override
@@ -71,7 +71,7 @@ class StaggerAnimation extends StatelessWidget {
     Key? key,
     required this.controller,
   }) : super(key: key) {
-    //高度动画; Tween这里估值器,确定起点~重点的任意类型参数
+    //高度动画; Tween这里估值器,确定起点~终点的任意类型参数
     height = Tween<double>(
       begin: .0,
       end: 300.0,
@@ -120,8 +120,8 @@ class StaggerAnimation extends StatelessWidget {
 
   Widget _buildAnimation(BuildContext context, child) {
     return Container(
-      alignment: Alignment.bottomCenter,
-      padding: padding.value,
+      alignment: Alignment.bottomLeft,
+      padding:padding.value ,
       child: Container(
         color: color.value,
         width: 50.0,

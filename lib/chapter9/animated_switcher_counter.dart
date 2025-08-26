@@ -71,6 +71,15 @@ class _AnimatedSwitcherCounterRouteState
               '$_count',
 
               ///显示指定key，不同的key会被认为是不同的Text，这样才能执行动画
+              //     在 `AnimatedSwitcher` 中，`key` 属性用于识别其子组件是否发生了变化。
+              //
+              // -   **作用**：`AnimatedSwitcher` 通过比较新旧子组件的 `key` 来决定是否执行过渡动画。
+              // -   **为何要不同**：
+              // -   如果新旧子组件的 `key` **不同**，`AnimatedSwitcher` 会认为这是一个全新的组件，从而触发动画（旧组件消失，新组件出现）。
+              // -   如果 `key` **相同**或**未设置**，`AnimatedSwitcher` 会认为这只是同一个组件的更新，因此不会执行动画，只会直接更新内容。
+              //
+              // 在这段代码中，`key: ValueKey<int>(_count)` 确保了每次 `_count` 的值改变时，`Text` 组件都会获得一个不同的 `key`。
+              // 这告诉 `AnimatedSwitcher` 子组件已经改变，需要执行 `transitionBuilder` 中定义的动画。
               key: ValueKey<int>(_count),
               style: Theme.of(context).textTheme.headlineMedium,
             ),

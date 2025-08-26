@@ -25,12 +25,20 @@ class TurnBox extends StatefulWidget {
   _TurnBoxState createState() => _TurnBoxState();
 }
 
-class _TurnBoxState extends State<TurnBox> with SingleTickerProviderStateMixin {
+class _TurnBoxState extends State<TurnBox>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
+    // `AnimationController` 的 `value` 默认被限制在 `lowerBound` (默认为 0.0) 和 `upperBound` (默认为 1.0) 之间。
+    //
+    // 在这个 `TurnBox` 组件中，`turns` 属性代表旋转的圈数，这个值可能大于 1.0 或小于 0.0。例如，`turns` 为 2.5 意味着旋转两圈半。
+    //
+    // 通过将 `lowerBound` 和 `upperBound` 设置为 `-double.infinity` 和 `double.infinity`，可以解除 `AnimationController`
+    // 的 `value` 在 `[0.0, 1.0]` 范围内的限制。这样，控制器就可以动画到任何目标值（如 2.5），
+    // 使得 `RotationTransition` 能够准确地执行任意圈数的旋转动画，而不是被限制在一圈以内。
     _controller = AnimationController(
       vsync: this,
       lowerBound: -double.infinity,
